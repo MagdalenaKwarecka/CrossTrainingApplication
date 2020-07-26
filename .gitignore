@@ -1,0 +1,27 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+application.yml
+
+
+arget/*
+.settings/*
+.classpath
+.project
+.factorypath
+.attach_pid*
+.idea
+*.iml
+/target
+.sts4-cache/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+_site/
