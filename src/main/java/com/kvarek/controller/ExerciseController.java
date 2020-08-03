@@ -1,7 +1,7 @@
 package com.kvarek.controller;
 
 import com.kvarek.model.Exercise;
-import com.kvarek.service.ExerciseService;
+import com.kvarek.service.ExcerciseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,24 +14,19 @@ import java.util.List;
 @RequestMapping("/exercise")
 public class ExerciseController {
 
-    ExerciseService exerciseService;
+    ExcerciseService exerciseService;
 
-    public ExerciseController(ExerciseService exerciseService) {
-        this.exerciseService = exerciseService;
+    public ExerciseController(ExcerciseService excerciseService) {
+        this.exerciseService = excerciseService;
     }
 
     @PostMapping("/initial")
     public String createInitialData() {
-        Exercise exercise1 = new Exercise();
-        Exercise exercise2 = new Exercise();
-        Exercise exercise3 = new Exercise();
-        Exercise exercise4 = new Exercise();
-        Exercise exercise5 = new Exercise();
-        exercise1.setName("airbike");
-        exercise2.setName("wall ball shot");
-        exercise3.setName("strict pull up");
-        exercise4.setName("deadlift");
-        exercise5.setName("double under");
+        Exercise exercise1 = new Exercise("airbike");
+        Exercise exercise2 = new Exercise("wall ball shot");
+        Exercise exercise3 = new Exercise("strict pull up");
+        Exercise exercise4 = new Exercise("deadlift");
+        Exercise exercise5 = new Exercise("double under");
         this.exerciseService.save(exercise1);
         this.exerciseService.save(exercise2);
         this.exerciseService.save(exercise3);
@@ -49,11 +44,10 @@ public class ExerciseController {
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestParam String name) {
 
-        if(this.exerciseService.existsExerciseByName(name)){
-            return new ResponseEntity<>("ćwiczenie już jest na liście",HttpStatus.CONFLICT);
+        if (this.exerciseService.existsExcerciseByName(name)) {
+            return new ResponseEntity<>("ćwiczenie już jest na liście", HttpStatus.CONFLICT);
         }
-        Exercise exercise = new Exercise();
-        exercise.setName(name);
+        Exercise exercise = new Exercise(name);
         this.exerciseService.save(exercise);
         return new ResponseEntity<>("ćwiczenie dodano do listy", HttpStatus.CREATED);
     }
@@ -71,20 +65,19 @@ public class ExerciseController {
     }
 
     @GetMapping("/findAllSortedByName")
-    public ResponseEntity<List<String>> findAllSortedByName (){
+    public ResponseEntity<List<Exercise>> findAllSortedByName() {
         return ResponseEntity.ok(this.exerciseService.findAllSortedByName());
     }
 
     @GetMapping("/findAllByNameContaining")
-    public ResponseEntity<List<Exercise>> findAllByNameContaining(String name){
-        try{
+    public ResponseEntity<List<Exercise>> findAllByNameContaining(String name) {
+        try {
             return ResponseEntity.ok(this.exerciseService.findAllByNameContaining(name));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             Exercise notFound = new Exercise();
             notFound.setName("Takiego ćwiczenia nie ma na liście");
-            return new ResponseEntity<>(new ArrayList<>(Collections.singletonList(notFound)),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ArrayList<>(Collections.singletonList(notFound)), HttpStatus.BAD_REQUEST);
         }
     }
 
 }
-

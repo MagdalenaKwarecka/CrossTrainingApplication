@@ -12,6 +12,11 @@ import java.util.Optional;
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
+    void delete(Person person);
+
+    Person save(Person person);
+
+    Person findByLogin(String login);
 
     void deleteByLogin(String login);
 
@@ -19,10 +24,10 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 
     Optional<List<Person>> findAllByLastNameContaining(String lastName);
 
-    Boolean existsPersonByLogin (String login);
+    Boolean existsPersonByLogin(String login);
 
-    Boolean existsPersonByEmail (String login);
+    Boolean existsPersonByEmail(String login);
 
-    @Query(value = "SELECT p FROM Person p WHERE p.role=?1 ORDER BY p.lastName" )
-    List<Person> findAllByRoleOrderByLastName (PersonRole role);
+    @Query(value = "SELECT p FROM Person p WHERE p.role=?1 ORDER BY p.lastName")
+    List<Person> findAllByRoleOrderByLastName(PersonRole role);
 }

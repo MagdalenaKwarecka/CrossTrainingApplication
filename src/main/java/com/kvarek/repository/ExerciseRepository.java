@@ -12,11 +12,12 @@ import java.util.Optional;
 public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
 
     @Query(value = "SELECT ex.name FROM Exercise ex ORDER BY ex.name" )
-    List<String> findAllSortedByName();
+    List<Exercise> findAllSortedByName();
+
 
     Optional<List<Exercise>> findAllByNameContaining(String name);
 
     Optional <Exercise> findByName(String name);
 
-    Boolean existsExerciseByName(String name);
+    Boolean existsExcerciseByName(String name);
 }
