@@ -1,4 +1,4 @@
-package com.kvarek.validator;
+package com.kvarek.registration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

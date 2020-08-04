@@ -1,4 +1,4 @@
-package com.kvarek.service;
+package com.kvarek.workout.service;
 
 public interface SecurityService {
     String findLoggedInLogin();

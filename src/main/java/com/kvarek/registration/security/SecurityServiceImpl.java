@@ -1,4 +1,4 @@
-package com.kvarek.service;
+package com.kvarek.workout.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

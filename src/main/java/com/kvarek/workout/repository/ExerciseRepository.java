@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
 
-    @Query(value = "SELECT ex.name FROM Exercise ex ORDER BY ex.name" )
+    @Query(value = "SELECT ex FROM Exercise ex ORDER BY ex.name" )
     List<Exercise> findAllSortedByName();
 
 

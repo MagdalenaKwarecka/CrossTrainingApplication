@@ -29,9 +29,6 @@ public class PersonService implements UserDetailsService {
         if (person == null) throw new UsernameNotFoundException(login);
 
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(person.getRole().name());
-         /*for ( person.getRole()) {
-           grantedAuthority.add(new SimpleGrantedAuthority(role.getName()));*/
-
         return new org.springframework.security.core.userdetails.User(person.getLogin(), person.getPassword(), Collections.singleton(grantedAuthority));
     }
 

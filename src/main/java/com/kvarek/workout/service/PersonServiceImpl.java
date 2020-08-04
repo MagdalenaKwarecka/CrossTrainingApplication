@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 public class PersonServiceImpl implements IPersonService {
 
 
-    private PersonRepository personRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PersonRepository personRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     PersonServiceImpl(PersonRepository personRepository, BCryptPasswordEncoder bCryptPasswordEncoder){

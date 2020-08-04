@@ -1,4 +1,4 @@
-package com.kvarek.validator;
+package com.kvarek.registration;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
