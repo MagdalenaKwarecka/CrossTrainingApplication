@@ -1,7 +1,7 @@
-package com.kvarek.service;
+package com.kvarek.workout.service;
 
-import com.kvarek.model.Exercise;
-import com.kvarek.repository.ExerciseRepository;
+import com.kvarek.workout.model.Exercise;
+import com.kvarek.workout.repository.ExerciseRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

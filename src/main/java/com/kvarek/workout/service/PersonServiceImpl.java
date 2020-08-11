@@ -1,9 +1,9 @@
-package com.kvarek.service;
+package com.kvarek.workout.service;
 
 
-import com.kvarek.model.Person;
-import com.kvarek.model.PersonRole;
-import com.kvarek.repository.PersonRepository;
+import com.kvarek.workout.model.Person;
+import com.kvarek.workout.model.PersonRole;
+import com.kvarek.workout.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

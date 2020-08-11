@@ -1,7 +1,7 @@
-package com.kvarek.repository;
+package com.kvarek.workout.repository;
 
-import com.kvarek.model.Person;
-import com.kvarek.model.PersonRole;
+import com.kvarek.workout.model.Person;
+import com.kvarek.workout.model.PersonRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,7 +14,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 
     void delete(Person person);
 
-    Person save(Person person);
+    //Person save(Person person);
 
     Person findByLogin(String login);
 

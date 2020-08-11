@@ -1,4 +1,4 @@
-package com.kvarek.workout.service;
+package com.kvarek.registration.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,7 @@ public class SecurityServiceImpl implements SecurityService {
 
     private AuthenticationManager authenticationManager;
 
-    @Qualifier("personService")
+   // @Qualifier("personService")
     @Autowired
     private UserDetailsService personDetailsService;
 

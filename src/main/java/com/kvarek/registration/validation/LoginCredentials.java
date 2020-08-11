@@ -1,4 +1,4 @@
-package com.kvarek.registration;
+package com.kvarek.registration.validation;
 
 import lombok.Getter;
 

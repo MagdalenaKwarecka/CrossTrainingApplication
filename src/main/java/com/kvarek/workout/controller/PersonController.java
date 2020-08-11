@@ -1,10 +1,10 @@
-package com.kvarek.controller;
+package com.kvarek.workout.controller;
 
 
-import com.kvarek.model.Person;
-import com.kvarek.model.PersonRole;
-import com.kvarek.service.PersonService;
-import com.kvarek.service.PersonServiceImpl;
+import com.kvarek.workout.model.Person;
+import com.kvarek.workout.model.PersonRole;
+import com.kvarek.workout.service.PersonService;
+import com.kvarek.workout.service.PersonServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

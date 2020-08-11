@@ -1,6 +1,6 @@
-package com.kvarek.repository;
+package com.kvarek.workout.repository;
 
-import com.kvarek.model.Exercise;
+import com.kvarek.workout.model.Exercise;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

@@ -1,6 +1,6 @@
-package com.kvarek.service;
+package com.kvarek.workout.service;
 
-import com.kvarek.model.Person;
+import com.kvarek.workout.model.Person;
 
 public interface IPersonService {
 

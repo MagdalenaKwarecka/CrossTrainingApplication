@@ -1,4 +1,4 @@
-package com.kvarek.model;
+package com.kvarek.workout.model;
 
 public enum PersonRole {
     COACH,

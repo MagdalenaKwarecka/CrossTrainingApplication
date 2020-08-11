@@ -1,37 +1,51 @@
-package com.kvarek;
+package com.kvarek.registration.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kvarek.workout.model.Person;
-import com.kvarek.workout.service.PersonServiceImpl;
-import com.kvarek.registration.JsonObjectAuthenticationFilter;
-import com.kvarek.registration.RestAuthenticationFailureHandler;
-import com.kvarek.registration.RestAuthenticationSuccessHandler;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.kvarek.registration.validation.JsonObjectAuthenticationFilter;
+import com.kvarek.workout.service.PersonService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
+import javax.sql.DataSource;
+
 @Configuration
-@RequiredArgsConstructor
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private final DataSource dataSource;
     private final ObjectMapper objectMapper;
     private final RestAuthenticationSuccessHandler successHandler;
     private final RestAuthenticationFailureHandler failureHandler;
+    private final String secret;
+    private final PersonService personDetailsService;
 
-    @Autowired
-    PersonServiceImpl personServiceImpl;
+
+    public WebSecurityConfiguration(DataSource dataSource, ObjectMapper objectMapper, RestAuthenticationSuccessHandler successHandler,
+                                    RestAuthenticationFailureHandler failureHandler,
+                                    @Value("${jwt.secret}") String secret, PersonService personDetailsService) {
+        this.dataSource = dataSource;
+        this.objectMapper = objectMapper;
+        this.successHandler = successHandler;
+        this.failureHandler = failureHandler;
+        this.secret = secret;
+        this.personDetailsService = personDetailsService;
+    }
+    /* @Autowired
+    PersonServiceImpl personServiceImpl;*/
 
     Person person;
 
+
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
     }
@@ -44,18 +58,26 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/saveCoach", "/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .addFilter(authenticationFilter())
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), personDetailsService, secret))
                 .exceptionHandling()
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
-
     }
 
-    public JsonObjectAuthenticationFilter authenticationFilter() throws Exception{
+    public JsonObjectAuthenticationFilter authenticationFilter() throws Exception {
         JsonObjectAuthenticationFilter authenticationFilter = new JsonObjectAuthenticationFilter(objectMapper);
         authenticationFilter.setAuthenticationSuccessHandler(successHandler);
         authenticationFilter.setAuthenticationFailureHandler(failureHandler);
         authenticationFilter.setAuthenticationManager(super.authenticationManager());
         return authenticationFilter;
     }
+
+    /*@Bean
+    public UserDetailsManager userDetailsManager() {
+        return new JdbcUserDetailsManager(dataSource);
+    }*/
+
 
 }

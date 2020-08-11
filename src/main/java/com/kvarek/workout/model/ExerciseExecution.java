@@ -1,4 +1,4 @@
-package com.kvarek.model;
+package com.kvarek.workout.model;
 
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;

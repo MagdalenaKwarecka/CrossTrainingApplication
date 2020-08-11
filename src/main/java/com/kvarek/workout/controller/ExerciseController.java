@@ -1,7 +1,7 @@
-package com.kvarek.controller;
+package com.kvarek.workout.controller;
 
-import com.kvarek.model.Exercise;
-import com.kvarek.service.ExcerciseService;
+import com.kvarek.workout.model.Exercise;
+import com.kvarek.workout.service.ExcerciseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
