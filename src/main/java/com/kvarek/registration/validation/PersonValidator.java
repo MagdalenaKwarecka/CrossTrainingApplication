@@ -21,7 +21,7 @@ public class PersonValidator implements IPersonValidator {
         this.personServiceImpl = personServiceImpl;
     }
 
-    Person person;
+    //Person person;
 
     @Override
     public ResponseEntity<String> message(Person person) {

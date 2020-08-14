@@ -2,8 +2,6 @@ package com.kvarek.registration.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.kvarek.workout.service.PersonDetails;
-import com.kvarek.workout.service.PersonService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,16 +19,13 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     private static final String TOKEN_HEADER = "Authorization";
     private static final String TOKEN_PREFIX = "Bearer ";
-   // private final AuthenticationManager authenticationManager;
-    private final PersonService personDetailsService;
+    private final UserDetailsService userDetailsService;
     private final String secret;
 
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager,
-                                  PersonService personDetailsService,
-                                  String secret) {
+                                  UserDetailsService userDetailsService, String secret) {
         super(authenticationManager);
-      //  this.authenticationManager = authenticationManager;
-        this.personDetailsService = personDetailsService;
+        this.userDetailsService = userDetailsService;
         this.secret = secret;
     }
 
@@ -54,7 +49,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                     .verify(token.replace(TOKEN_PREFIX, ""))
                     .getSubject();
             if (login != null) {
-                PersonDetails userDetails = (PersonDetails) personDetailsService.loadUserByUsername(login);
+                UserDetails userDetails =  userDetailsService.loadUserByUsername(login);
                 return new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
             }
         }

@@ -1,7 +1,6 @@
 package com.kvarek.registration.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kvarek.workout.model.Person;
 import com.kvarek.registration.validation.JsonObjectAuthenticationFilter;
 import com.kvarek.workout.service.PersonService;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import javax.sql.DataSource;
 
 @Configuration
+@EnableWebSecurity(debug = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final DataSource dataSource;
@@ -38,11 +39,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         this.secret = secret;
         this.personDetailsService = personDetailsService;
     }
-    /* @Autowired
-    PersonServiceImpl personServiceImpl;*/
-
-    Person person;
-
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -73,11 +69,5 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         authenticationFilter.setAuthenticationManager(super.authenticationManager());
         return authenticationFilter;
     }
-
-    /*@Bean
-    public UserDetailsManager userDetailsManager() {
-        return new JdbcUserDetailsManager(dataSource);
-    }*/
-
 
 }
