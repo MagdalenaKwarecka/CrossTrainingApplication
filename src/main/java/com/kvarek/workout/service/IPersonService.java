@@ -6,5 +6,7 @@ public interface IPersonService {
 
     void saveCoach(Person person);
 
+    void saveAthlete(Person person);
+
     Person findByLogin(String login);
 }

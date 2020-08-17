@@ -1,7 +1,6 @@
 package com.kvarek.registration.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kvarek.registration.validation.JsonObjectAuthenticationFilter;
 import com.kvarek.workout.service.PersonService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +28,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final PersonService personDetailsService;
 
 
+
     public WebSecurityConfiguration(DataSource dataSource, ObjectMapper objectMapper, RestAuthenticationSuccessHandler successHandler,
                                     RestAuthenticationFailureHandler failureHandler,
                                     @Value("${jwt.secret}") String secret, PersonService personDetailsService) {
@@ -51,7 +51,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/saveCoach", "/login").permitAll()
+                .antMatchers("/saveCoach", "/login", "/person/updateAthlete").permitAll()
+                .antMatchers("/exercise", "/person").hasAuthority("COACH")
+                .antMatchers("/exercise/findAllByNameContaining").hasAuthority("ATHLETE")
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

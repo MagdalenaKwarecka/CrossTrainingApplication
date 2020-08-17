@@ -5,7 +5,11 @@ import org.springframework.http.ResponseEntity;
 
 public interface IPersonValidator {
 
-    ResponseEntity<String> message (Person person);
+    ResponseEntity<String> coachMessage(Person person);
+
+    ResponseEntity<String> athleteMessageToCoach(Person person);
+
+    ResponseEntity<String> athleteMessage(Person person);
 
 
 

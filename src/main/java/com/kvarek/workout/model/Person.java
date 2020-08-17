@@ -25,6 +25,21 @@ public class Person implements Serializable {
     String lastName;
     String email;
     String login;
+    String password;
+    @Transient
+    String matchingPassword;
+    @OneToMany
+    List<WODExecution> wodExecutions;
+
+    public Person(@NotEmpty PersonRole role, @NotEmpty String firstName,
+                  @NotEmpty String lastName, @NotEmpty String email, @NotEmpty String login, @NotEmpty String password) {
+        this.role=role;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.login = login;
+        this.password = password;
+    }
 
     public void setRole(PersonRole role) {
         this.role = role;
@@ -54,19 +69,7 @@ public class Person implements Serializable {
         this.matchingPassword = matchingPassword;
     }
 
-    String password;
-    @Transient
-    String matchingPassword;
-    @OneToMany
-    List<WODExecution> wodExecutions;
 
-    public Person(@NotEmpty PersonRole role, @NotEmpty String firstName,
-                  @NotEmpty String lastName, @NotEmpty String email, @NotEmpty String login, @NotEmpty String password) {
-        this.role=role;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.login = login;
-        this.password = password;
-    }
+
+
 }

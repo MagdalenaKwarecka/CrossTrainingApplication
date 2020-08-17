@@ -33,5 +33,11 @@ public class PersonServiceImpl implements IPersonService {
     public Person findByLogin(String login) {
         return personRepository.findByLogin(login);
     }
+
+    @Override
+    public void saveAthlete(Person person) {
+        person.setRole(PersonRole.ATHLETE);
+        personRepository.save(person);
+    }
 }
 

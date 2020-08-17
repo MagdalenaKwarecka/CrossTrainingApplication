@@ -1,6 +1,7 @@
-package com.kvarek.registration.validation;
+package com.kvarek.registration.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kvarek.registration.validation.LoginCredentials;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;

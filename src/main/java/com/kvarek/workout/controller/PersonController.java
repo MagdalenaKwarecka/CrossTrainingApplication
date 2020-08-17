@@ -1,6 +1,7 @@
 package com.kvarek.workout.controller;
 
 
+import com.kvarek.registration.validation.PersonValidator;
 import com.kvarek.workout.model.Person;
 import com.kvarek.workout.model.PersonRole;
 import com.kvarek.workout.service.PersonService;
@@ -19,33 +20,26 @@ public class PersonController {
 
     PersonService personService;
     PersonServiceImpl personServiceImpl;
+    PersonValidator personValidator;
 
-    public PersonController(PersonService personService, PersonServiceImpl personServiceImpl)
+    public PersonController(PersonService personService, PersonServiceImpl personServiceImpl, PersonValidator personValidator)
     {
         this.personService = personService;
         this.personServiceImpl=personServiceImpl;
+        this.personValidator=personValidator;
     }
 
-    @PostMapping("/initial")
-    public String createInitialData() {
-
-
-        Person person1 = new Person(PersonRole.COACH,"Jan", "Myśliński", "jmyslinski@wp.pl", "myslin", "jan1mys12");
-        Person person2 = new Person(PersonRole.COACH, "Zofia", "Przybył", "przybylzof@gmail.com", "zochenka", "qwerty12345");
-        Person person3 = new Person(PersonRole.ATHLETE,"Karol", "Zawitkowski", "zawkar@gmail.com", "zawit", "mojehaslo12");
-        Person person4 = new Person(PersonRole.ATHLETE,"Anna", "Badurska", "banna@vp.pl", "annaba", "bananaana123");
-        Person person5 = new Person(PersonRole.ATHLETE,"Marta", "Kowalik", "marta.kowalik@o2.pl", "kowalik", "kowal21!1548");
-        Person person6 = new Person(PersonRole.ATHLETE,"Filip", "Musiał", "filipm@gmail.com", "fifi", "kjh772879kjh");
-
-        this.personService.save(person1);
-        this.personService.save(person2);
-        this.personService.save(person3);
-        this.personService.save(person4);
-        this.personService.save(person5);
-        this.personService.save(person6);
-
-        return "dodano inicjalne dane";
+    @PostMapping("/saveAthlete")
+    public ResponseEntity<String> save (@RequestBody Person person){
+        return personValidator.athleteMessageToCoach(person);
     }
+
+    @PutMapping("/updateAthlete")
+    public ResponseEntity<String> update (@RequestParam long id, @RequestParam String login){
+        this.personService.update(id, login);
+        return new ResponseEntity<>("dodanno dane",HttpStatus.ACCEPTED);
+    }
+
 
     @DeleteMapping("/delete")
     public ResponseEntity<String> delete(@RequestBody Person person) {

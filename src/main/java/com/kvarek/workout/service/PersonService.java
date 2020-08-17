@@ -28,6 +28,18 @@ public class PersonService implements UserDetailsService {
         Person person = personRepository.findByLogin(login);
         if (person == null) throw new UsernameNotFoundException(login);
 
+       /* List<GrantedAuthority> grantedAuthorities = null;
+
+        if (person.getRole().equals("ATHLETE")) {
+            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_USER");
+            grantedAuthorities = Arrays.asList(grantedAuthority);
+        }
+
+        if (person.getRole().equals("COACH")) {
+            GrantedAuthority grantedAuthorityUser = new SimpleGrantedAuthority("ROLE_USER");
+            GrantedAuthority grantedAuthorityAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
+            grantedAuthorities = Arrays.asList(grantedAuthorityUser, grantedAuthorityAdmin);
+        }*/
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(person.getRole().name());
         return new org.springframework.security.core.userdetails.User(person.getLogin(), person.getPassword(), Collections.singleton(grantedAuthority));
     }
@@ -42,6 +54,10 @@ public class PersonService implements UserDetailsService {
 
     public Person save(Person person) {
         return this.personRepository.save(person);
+    }
+
+    public void update(long id, String login){
+        this.personRepository.update(id, login);
     }
 
     public Person findById(Long id) throws IllegalArgumentException {
