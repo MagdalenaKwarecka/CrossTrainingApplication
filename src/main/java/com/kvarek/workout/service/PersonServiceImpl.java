@@ -39,5 +39,11 @@ public class PersonServiceImpl implements IPersonService {
         person.setRole(PersonRole.ATHLETE);
         personRepository.save(person);
     }
+
+    @Override
+    public void update(Person person) {
+        person.setPassword(bCryptPasswordEncoder.encode(person.getPassword()));
+        this.personRepository.update(person.getId(), person.getLogin(), person.getPassword());
+    }
 }
 

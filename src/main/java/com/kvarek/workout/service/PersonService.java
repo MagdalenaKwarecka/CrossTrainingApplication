@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -20,6 +21,8 @@ public class PersonService implements UserDetailsService {
     @Autowired
     PersonRepository personRepository;
 
+
+
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
@@ -28,18 +31,6 @@ public class PersonService implements UserDetailsService {
         Person person = personRepository.findByLogin(login);
         if (person == null) throw new UsernameNotFoundException(login);
 
-       /* List<GrantedAuthority> grantedAuthorities = null;
-
-        if (person.getRole().equals("ATHLETE")) {
-            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_USER");
-            grantedAuthorities = Arrays.asList(grantedAuthority);
-        }
-
-        if (person.getRole().equals("COACH")) {
-            GrantedAuthority grantedAuthorityUser = new SimpleGrantedAuthority("ROLE_USER");
-            GrantedAuthority grantedAuthorityAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
-            grantedAuthorities = Arrays.asList(grantedAuthorityUser, grantedAuthorityAdmin);
-        }*/
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(person.getRole().name());
         return new org.springframework.security.core.userdetails.User(person.getLogin(), person.getPassword(), Collections.singleton(grantedAuthority));
     }
@@ -52,13 +43,12 @@ public class PersonService implements UserDetailsService {
         this.personRepository.deleteByLogin(login);
     }
 
-    public Person save(Person person) {
+   /* public Person save(Person person) {
         return this.personRepository.save(person);
-    }
+    }*/
 
-    public void update(long id, String login){
-        this.personRepository.update(id, login);
-    }
+    public void update(long id, String login, String password){
+        this.personRepository.update(id, login, password);}
 
     public Person findById(Long id) throws IllegalArgumentException {
         Optional<Person> person = this.personRepository.findById(id);

@@ -81,8 +81,8 @@ public class PersonValidator implements IPersonValidator {
         } else if (!person.getPassword().equals(person.getMatchingPassword())) {
             return new ResponseEntity<>("Hasła nie są zgodne", HttpStatus.BAD_REQUEST);
         } else {
-            this.personServiceImpl.saveCoach(person);
-            return new ResponseEntity<>("Trenera dodano do bazy danych", HttpStatus.CREATED);
+            this.personServiceImpl.update(person);//person.getId(), person.getLogin(), person.getPassword());
+            return new ResponseEntity<>("Uzupełniono dane zawodnika", HttpStatus.CREATED);
         }
     }
 }

@@ -8,5 +8,7 @@ public interface IPersonService {
 
     void saveAthlete(Person person);
 
+    void update(Person person);
+
     Person findByLogin(String login);
 }
