@@ -6,7 +6,10 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
-application.properties
+
+src/main/resources/application.properties
+
+*.properties
 
 
 arget/*
