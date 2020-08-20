@@ -37,12 +37,4 @@ public class RegistrationController {
     public void login(@RequestBody LoginCredentials credentials) {
     }
 
-    @GetMapping("/sendEmail")
-    public String sendEmail() throws MessagingException {
-        emailSender.sendEmail("magdalenakwarecka@gmail.com",
-                "Wygrałeś",
-                "1000 000 zł:P");
-        return "wysłano";
-    }
-
 }

@@ -10,6 +10,7 @@
 src/main/resources/application.properties
 
 *.properties
+*.html
 
 
 arget/*
