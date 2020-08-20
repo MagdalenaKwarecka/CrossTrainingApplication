@@ -1,5 +1,6 @@
 package com.kvarek.registration.email;
 
+import com.kvarek.workout.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -13,8 +14,13 @@ public class EmailSenderImpl implements EmailSender{
 
     @Autowired
     private JavaMailSender javaMailSender;
+    private Person person;
+
+
+
     @Override
     public void sendEmail(String to, String title, String content) {
+        to = person.getEmail();
         MimeMessage mail = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(mail, true);
