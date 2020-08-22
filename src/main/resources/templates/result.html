@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Result</h2>
+<div>
+    <p><strong>Imię:</strong> <span th:text="${person.firstName}"></span></p>
+    <p><strong>Nazwisko:</strong> <span th:text="${person.lastName}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${person.email}"></span></p>
+    <p><strong>Login:</strong> <span th:text="${person.login}"></span></p>
+    <p><strong>Hasło:</strong> <span th:text="${person.password}"></span></p>
+    <p><strong>Powtórz hasło:</strong> <span th:text="${person.matchingPassword}"></span></p>
+</div>
+<a th:href="@{/registrate}">Add new project</a>
+</body>
+</html>
