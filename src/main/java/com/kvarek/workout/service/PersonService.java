@@ -21,8 +21,6 @@ public class PersonService implements UserDetailsService {
     @Autowired
     PersonRepository personRepository;
 
-
-
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }

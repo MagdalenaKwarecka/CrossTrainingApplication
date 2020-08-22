@@ -7,7 +7,9 @@ import com.kvarek.workout.service.PersonService;
 import com.kvarek.workout.service.PersonServiceImpl;
 import com.kvarek.registration.validation.LoginCredentials;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.mail.MessagingException;
 
@@ -28,9 +30,9 @@ public class RegistrationController {
     }
 
     @PostMapping("/saveCoach")
-    public ResponseEntity<String> save(@RequestBody Person person) {
-        return personValidator.coachMessage(person);
+    public ResponseEntity<String> save(@RequestBody Person person) {return personValidator.coachMessage(person);
     }
+
 
 
     @PostMapping("/login")

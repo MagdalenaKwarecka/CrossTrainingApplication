@@ -1,5 +1,8 @@
 package com.kvarek.registration.validation;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Authorities {
 
 
@@ -8,8 +11,9 @@ public class Authorities {
     String[] athleteAuthoritiesPathArray;
 
 
+
     public Authorities() {
-        this.noAuthoritiesPathArray= new String[]{"/saveCoach", "/login", "/person/updateAthlete"};
+        this.noAuthoritiesPathArray= new String[]{"/registration", "/saveCoach", "/login", "/person/updateAthlete"};
         this.coachAuthoritiesPathArray = new String[]{"/exercise", "/person"};
         this.athleteAuthoritiesPathArray = new String[]{"/exercise/findAllByNameContaining"};
     }

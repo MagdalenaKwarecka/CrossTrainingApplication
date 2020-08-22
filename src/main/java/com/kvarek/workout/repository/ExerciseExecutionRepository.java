@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ExerciseExecutionRepository extends JpaRepository<ExerciseExecution, Long> {
 
+    ExerciseExecution save (ExerciseExecution exerciseExecution);
+
 }
