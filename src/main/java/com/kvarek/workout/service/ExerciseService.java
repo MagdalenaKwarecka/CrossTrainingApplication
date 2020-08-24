@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ExcerciseService {
+public class ExerciseService {
 
     ExerciseRepository excerciseRepository;
 
-    public ExcerciseService(ExerciseRepository excerciseRepository){
+    public ExerciseService(ExerciseRepository excerciseRepository){
         this.excerciseRepository=excerciseRepository;
     }
 

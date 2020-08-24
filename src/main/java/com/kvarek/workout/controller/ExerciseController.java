@@ -1,7 +1,7 @@
 package com.kvarek.workout.controller;
 
 import com.kvarek.workout.model.Exercise;
-import com.kvarek.workout.service.ExcerciseService;
+import com.kvarek.workout.service.ExerciseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +14,9 @@ import java.util.List;
 @RequestMapping("/exercise")
 public class ExerciseController {
 
-    ExcerciseService exerciseService;
+    ExerciseService exerciseService;
 
-    public ExerciseController(ExcerciseService excerciseService) {
+    public ExerciseController(ExerciseService excerciseService) {
         this.exerciseService = excerciseService;
     }
 
