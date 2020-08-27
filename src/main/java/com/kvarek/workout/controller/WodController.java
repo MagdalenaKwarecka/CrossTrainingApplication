@@ -20,9 +20,9 @@ public class WodController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody WOD wod) {
+    public ResponseEntity<WOD> save(@RequestBody WOD wod) {
         this.wodService.save(wod);
-        return new ResponseEntity<>("WOD dodano do listy", HttpStatus.CREATED);
+        return new ResponseEntity<>(wod, HttpStatus.CREATED);
     }
 
     @GetMapping("/findById")

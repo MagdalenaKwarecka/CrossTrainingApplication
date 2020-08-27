@@ -32,11 +32,9 @@ public class PersonController {
     }
 
     @PutMapping("/updateAthlete")
-    public ResponseEntity<String> update (@RequestBody Person person) {//@RequestParam long id, @RequestParam String login, @RequestParam String password){
+    public ResponseEntity<String> update (@RequestBody Person person) {
        return this.personValidator.athleteMessage(person);
-        // this.personService.update(person.getId(),person.getLogin(), person.getPassword());
-    }
-
+      }
 
     @DeleteMapping("/delete")
     public ResponseEntity<String> delete(@RequestBody Person person) {

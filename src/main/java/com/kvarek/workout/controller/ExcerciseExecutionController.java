@@ -21,9 +21,9 @@ public class ExcerciseExecutionController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody ExerciseExecution exerciseExecution, @RequestParam String name) {
+    public ResponseEntity<ExerciseExecution> save(@RequestBody ExerciseExecution exerciseExecution, @RequestParam String name) {
         this.exerciseExecutionService.save(exerciseExecution, name);
-        return new ResponseEntity<>("ćwiczenie dodano do listy", HttpStatus.CREATED);
+        return new ResponseEntity<>(exerciseExecution, HttpStatus.CREATED);
     }
 
     @GetMapping("/findById")
