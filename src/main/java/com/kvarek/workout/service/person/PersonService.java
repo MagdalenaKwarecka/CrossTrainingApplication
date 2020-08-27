@@ -1,6 +1,7 @@
-package com.kvarek.workout.service;
+package com.kvarek.workout.service.person;
 
 
+import com.kvarek.registration.email.EmailSenderImpl;
 import com.kvarek.workout.model.Person;
 import com.kvarek.workout.model.PersonRole;
 import com.kvarek.workout.repository.PersonRepository;
@@ -16,21 +17,18 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class PersonService implements UserDetailsService {
+public class PersonService {
+
+
+    private final PersonRepository personRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final EmailSenderImpl emailSender;
 
     @Autowired
-    PersonRepository personRepository;
-
-    public PersonService(PersonRepository personRepository) {
+    public PersonService(PersonRepository personRepository, BCryptPasswordEncoder bCryptPasswordEncoder, EmailSenderImpl emailSender) {
         this.personRepository = personRepository;
-    }
-
-    public UserDetails loadUserByUsername(String login) {
-        Person person = personRepository.findByLogin(login);
-        if (person == null) throw new UsernameNotFoundException(login);
-
-        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(person.getRole().name());
-        return new org.springframework.security.core.userdetails.User(person.getLogin(), person.getPassword(), Collections.singleton(grantedAuthority));
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.emailSender = emailSender;
     }
 
     public void delete(Person person) {
@@ -41,12 +39,23 @@ public class PersonService implements UserDetailsService {
         this.personRepository.deleteByLogin(login);
     }
 
-   /* public Person save(Person person) {
-        return this.personRepository.save(person);
-    }*/
+    public void saveCoach(Person person) {
+        person.setPassword(bCryptPasswordEncoder.encode(person.getPassword()));
+        person.setRole(PersonRole.COACH);
+        personRepository.save(person);
+    }
 
-    public void update(long id, String login, String password){
-        this.personRepository.update(id, login, password);}
+    public void saveAthlete(Person person) {
+        person.setRole(PersonRole.ATHLETE);
+        emailSender.sendEmail(person.getEmail(), "Cześć :)", "<p>Pozdrawiam serdecznie, Magda</p>") ;
+        personRepository.save(person);
+    }
+
+    public void update(Person person) {
+        person.setPassword(bCryptPasswordEncoder.encode(person.getPassword()));
+        this.personRepository.update(person.getEmail(), person.getLogin(), person.getPassword());
+    }
+
 
     public Person findById(Long id) throws IllegalArgumentException {
         Optional<Person> person = this.personRepository.findById(id);

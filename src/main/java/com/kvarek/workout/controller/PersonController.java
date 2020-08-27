@@ -4,8 +4,7 @@ package com.kvarek.workout.controller;
 import com.kvarek.registration.validation.PersonValidator;
 import com.kvarek.workout.model.Person;
 import com.kvarek.workout.model.PersonRole;
-import com.kvarek.workout.service.PersonService;
-import com.kvarek.workout.service.PersonServiceImpl;
+import com.kvarek.workout.service.person.PersonService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +18,11 @@ import java.util.List;
 public class PersonController {
 
     PersonService personService;
-    PersonServiceImpl personServiceImpl;
     PersonValidator personValidator;
 
-    public PersonController(PersonService personService, PersonServiceImpl personServiceImpl, PersonValidator personValidator)
+    public PersonController(PersonService personService, PersonValidator personValidator)
     {
         this.personService = personService;
-        this.personServiceImpl=personServiceImpl;
         this.personValidator=personValidator;
     }
 

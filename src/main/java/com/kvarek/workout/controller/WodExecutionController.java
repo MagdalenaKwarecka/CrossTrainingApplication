@@ -13,6 +13,7 @@ public class WodExecutionController {
 
     private WodExecutionService wodExecutionService;
 
+
     public WodExecutionController(WodExecutionService wodExecutionService) {
         this.wodExecutionService = wodExecutionService;
     }
@@ -21,6 +22,12 @@ public class WodExecutionController {
     public ResponseEntity<String> save(@RequestBody WODExecution wodExecution) {
         this.wodExecutionService.save(wodExecution);
         return new ResponseEntity<>("trening dodano do listy", HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<String> update(@RequestParam long id, @RequestParam Double wodResult, @RequestParam String userComment){
+        this.wodExecutionService.update(id, wodResult, userComment);
+        return new ResponseEntity<String>("dodano informacje zawodnika", HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/findById")

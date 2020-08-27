@@ -3,6 +3,7 @@ package com.kvarek.workout.service;
 import com.kvarek.workout.model.Exercise;
 import com.kvarek.workout.model.ExerciseExecution;
 import com.kvarek.workout.repository.ExerciseExecutionRepository;
+import com.kvarek.workout.repository.ExerciseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +14,17 @@ public class ExerciseExecutionService {
 
     @Autowired
     ExerciseExecutionRepository exerciseExecutionRepository;
+    ExerciseRepository exerciseRepository;
 
 
-
-    public ExerciseExecutionService(ExerciseExecutionRepository exerciseExecutionRepository) {
+    public ExerciseExecutionService(ExerciseExecutionRepository exerciseExecutionRepository, ExerciseRepository exerciseRepository) {
         this.exerciseExecutionRepository=exerciseExecutionRepository;
+        this.exerciseRepository=exerciseRepository;
     }
 
-     public ExerciseExecution save(ExerciseExecution exerciseExecution) {
+     public ExerciseExecution save(ExerciseExecution exerciseExecution, String name) throws IllegalArgumentException {
+        Optional <Exercise> exercise = exerciseRepository.findByName(name);
+        exerciseExecution.setExercise(exercise.orElseThrow(IllegalArgumentException::new));
         return this.exerciseExecutionRepository.save(exerciseExecution);
     }
 

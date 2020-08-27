@@ -1,4 +1,4 @@
-package com.kvarek.workout.service;
+package com.kvarek.workout.service.person;
 
 import com.kvarek.registration.validation.LoginCredentials;
 import com.kvarek.workout.model.Person;
@@ -15,7 +15,7 @@ public class PersonDetails implements UserDetails {
     @Autowired
     Person person;
 
-    public PersonDetails(String login, String password){//, List<GrantedAuthority> grantedAuthorities) {
+    public PersonDetails(String login, String password){
     }
 
     @Override

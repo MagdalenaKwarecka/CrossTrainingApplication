@@ -23,7 +23,14 @@ public class WODExecution implements Serializable {
     @ManyToOne
     Person athlete;
     LocalDate wodDate;
-    String CoachComment;
-    String UserComment;
+    String coachComment;
+    String userComment;
     Double wodResult;
+
+    public WODExecution (WOD wod, Person athlete, LocalDate wodDate, String coachComment){
+        this.wod=wod;
+        this.athlete=athlete;
+        this.wodDate=wodDate;
+        this.coachComment=coachComment;
+    }
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
 
@@ -20,7 +21,8 @@ public class Round implements Serializable {
     Long roundDurationInSeconds;
     Integer numberOfRepetition;
     String comment;
+    @NotEmpty
     @OneToMany
-    List<ExerciseExecution> excerciseExecutionList;
+    List<ExerciseExecution> exerciseExecution;
 
 }

@@ -18,9 +18,10 @@ public class RoundController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody Round round) {
-        this.roundService.save(round);
-        return new ResponseEntity<>("rundę dodano do listy", HttpStatus.CREATED);
+    public ResponseEntity<Round> save(@RequestBody Round round) {
+
+        return ResponseEntity.ok(this.roundService.save(round));
+
     }
 
     @GetMapping("/findById")

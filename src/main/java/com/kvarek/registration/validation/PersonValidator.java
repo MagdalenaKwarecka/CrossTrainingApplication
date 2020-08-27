@@ -1,8 +1,7 @@
 package com.kvarek.registration.validation;
 
 import com.kvarek.workout.model.Person;
-import com.kvarek.workout.service.PersonService;
-import com.kvarek.workout.service.PersonServiceImpl;
+import com.kvarek.workout.service.person.PersonService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -13,13 +12,12 @@ public class PersonValidator implements IPersonValidator {
     private static final String EMAIL_PATTERN = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
 
     private PersonService personService;
-    private PersonServiceImpl personServiceImpl;
 
 
-    public PersonValidator(PersonService personService, PersonServiceImpl personServiceImpl) {
+
+    public PersonValidator(PersonService personService){
         this.personService = personService;
-        this.personServiceImpl = personServiceImpl;
-    }
+        }
 
     @Override
     public ResponseEntity<String> coachMessage(Person person) {
@@ -45,7 +43,7 @@ public class PersonValidator implements IPersonValidator {
         } else if (!person.getPassword().equals(person.getMatchingPassword())) {
             return new ResponseEntity<>("Hasła nie są zgodne", HttpStatus.BAD_REQUEST);
         } else {
-            this.personServiceImpl.saveCoach(person);
+            this.personService.saveCoach(person);
             return new ResponseEntity<>("Trenera dodano do bazy danych", HttpStatus.CREATED);
         }
     }
@@ -63,7 +61,7 @@ public class PersonValidator implements IPersonValidator {
         } else if (this.personService.existsPersonByEmail(person.getEmail())) {
             return new ResponseEntity<>("Email jest już w bazie danych", HttpStatus.BAD_REQUEST);
         } else {
-            this.personServiceImpl.saveAthlete(person);
+            this.personService.saveAthlete(person);
             return new ResponseEntity<>("Zawodnika dodano do bazy danych", HttpStatus.CREATED);
         }
     }
@@ -81,7 +79,7 @@ public class PersonValidator implements IPersonValidator {
         } else if (!person.getPassword().equals(person.getMatchingPassword())) {
             return new ResponseEntity<>("Hasła nie są zgodne", HttpStatus.BAD_REQUEST);
         } else {
-            this.personServiceImpl.update(person);//person.getId(), person.getLogin(), person.getPassword());
+            this.personService.update(person);
             return new ResponseEntity<>("Uzupełniono dane zawodnika", HttpStatus.CREATED);
         }
     }

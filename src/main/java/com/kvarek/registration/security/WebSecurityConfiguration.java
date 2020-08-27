@@ -2,7 +2,7 @@ package com.kvarek.registration.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kvarek.registration.validation.Authorities;
-import com.kvarek.workout.service.PersonService;
+import com.kvarek.workout.service.person.PersonDetailsService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,14 +25,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final RestAuthenticationSuccessHandler successHandler;
     private final RestAuthenticationFailureHandler failureHandler;
     private final String secret;
-    private final PersonService personDetailsService;
+    private final PersonDetailsService personDetailsService;
     private final Authorities authorities;
 
 
 
     public WebSecurityConfiguration(DataSource dataSource, ObjectMapper objectMapper, RestAuthenticationSuccessHandler successHandler,
                                     RestAuthenticationFailureHandler failureHandler,
-                                    @Value("${jwt.secret}") String secret, PersonService personDetailsService, Authorities authorities) {
+                                    @Value("${jwt.secret}") String secret, PersonDetailsService personDetailsService, Authorities authorities) {
         this.dataSource = dataSource;
         this.objectMapper = objectMapper;
         this.successHandler = successHandler;
@@ -47,8 +47,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
     }
-
-
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
