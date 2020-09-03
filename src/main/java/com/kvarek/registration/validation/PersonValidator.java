@@ -10,14 +10,11 @@ import org.springframework.stereotype.Component;
 public class PersonValidator implements IPersonValidator {
 
     private static final String EMAIL_PATTERN = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+    private final PersonService personService;
 
-    private PersonService personService;
-
-
-
-    public PersonValidator(PersonService personService){
+    public PersonValidator(PersonService personService) {
         this.personService = personService;
-        }
+    }
 
     @Override
     public ResponseEntity<String> coachMessage(Person person) {
@@ -68,7 +65,9 @@ public class PersonValidator implements IPersonValidator {
 
     @Override
     public ResponseEntity<String> athleteMessage(Person person) {
-        if (person.getLogin() == null || person.getLogin().isEmpty()) {
+        if (!this.personService.existsPersonByEmail(person.getEmail())) {
+            return new ResponseEntity<>("Takiego maila nie ma w bazie danych", HttpStatus.BAD_REQUEST);
+        } else if (person.getLogin() == null || person.getLogin().isEmpty()) {
             return new ResponseEntity<>("Uzupełnij login", HttpStatus.BAD_REQUEST);
         } else if (this.personService.existsPersonByLogin(person.getLogin())) {
             return new ResponseEntity<>("Taki login jest już w zajęty", HttpStatus.BAD_REQUEST);

@@ -1,17 +1,23 @@
 package com.kvarek.workout.controller;
 
 import com.kvarek.workout.model.ExerciseExecution;
+import com.kvarek.workout.model.Person;
 import com.kvarek.workout.model.WODExecution;
 import com.kvarek.workout.service.WodExecutionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 @RestController
 @RequestMapping("wodExecution")
 public class WodExecutionController {
 
     private WodExecutionService wodExecutionService;
+    private Person person;
 
 
     public WodExecutionController(WodExecutionService wodExecutionService) {
@@ -25,7 +31,7 @@ public class WodExecutionController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<WODExecution> update(@RequestParam long id, @RequestParam Double wodResult, @RequestParam String userComment){
+    public ResponseEntity<WODExecution> update(@RequestParam long id, @RequestParam Double wodResult, @RequestParam String userComment) {
 
         this.wodExecutionService.update(id, wodResult, userComment);
         WODExecution newExecution = new WODExecution();
@@ -42,6 +48,17 @@ public class WodExecutionController {
             WODExecution notFound = new WODExecution();
             notFound.setCoachComment(String.format("treningu o id %d nie ma w bazie danych", id));
             return new ResponseEntity<>(notFound, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/findAllByAthlete")
+    public ResponseEntity<List<WODExecution>> findAllByAthlete(@RequestParam String personLastName, @RequestParam String personFirsName) {
+        try {
+            return ResponseEntity.ok(this.wodExecutionService.findAllByAthlete(person.getLastName(), person.getFirstName()));
+        } catch (IllegalArgumentException e) {
+            WODExecution notFound = new WODExecution();
+            notFound.setCoachComment(String.format("%s nie ma jeszcze treninigów", person.getFirstName()));
+            return new ResponseEntity<>(new ArrayList<>(Collections.singletonList(notFound)), HttpStatus.BAD_REQUEST);
         }
     }
 }

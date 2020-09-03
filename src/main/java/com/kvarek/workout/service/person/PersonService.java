@@ -5,14 +5,15 @@ import com.kvarek.registration.email.EmailSenderImpl;
 import com.kvarek.workout.model.Person;
 import com.kvarek.workout.model.PersonRole;
 import com.kvarek.workout.repository.PersonRepository;
+import net.bytebuddy.utility.RandomString;
+import org.passay.CharacterRule;
+import org.passay.PasswordData;
+import org.passay.PasswordGenerator;
+import org.passay.RuleResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.CharacterData;
 
 import java.util.*;
 
@@ -23,6 +24,11 @@ public class PersonService {
     private final PersonRepository personRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final EmailSenderImpl emailSender;
+
+
+   RandomString random = new RandomString();
+   String generatedPassword = random.nextString();
+
 
     @Autowired
     public PersonService(PersonRepository personRepository, BCryptPasswordEncoder bCryptPasswordEncoder, EmailSenderImpl emailSender) {
@@ -47,7 +53,10 @@ public class PersonService {
 
     public void saveAthlete(Person person) {
         person.setRole(PersonRole.ATHLETE);
-        emailSender.sendEmail(person.getEmail(), "Cześć :)", "<p>Pozdrawiam serdecznie, Magda</p>") ;
+        person.setLogin(person.getEmail());
+        person.setPassword(generatedPassword);
+        emailSender.sendEmail(person.getEmail(), "Stworzono konto", "<p>Witaj </p>" +person.getFirstName()+
+                "<p>Twoje dane do logowania to:</p><p><br>login: </br></p>"+ person.getEmail()+"</p><p><br>hasło: </br></p>"+ generatedPassword);
         personRepository.save(person);
     }
 

@@ -9,7 +9,4 @@ public interface ExerciseExecutionRepository extends JpaRepository<ExerciseExecu
 
 
 
-    ExerciseExecution save (ExerciseExecution exerciseExecution);
-
-
 }

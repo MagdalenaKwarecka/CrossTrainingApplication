@@ -14,7 +14,6 @@ import java.util.List;
 @Data
 @Entity
 @NoArgsConstructor
-//@AllArgsConstructor
 public class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +32,7 @@ public class Person implements Serializable {
 
     public Person(@NotEmpty PersonRole role, @NotEmpty String firstName,
                   @NotEmpty String lastName, @NotEmpty String email, @NotEmpty String login, @NotEmpty String password) {
-        this.role=role;
+        this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -68,8 +67,6 @@ public class Person implements Serializable {
     public void setMatchingPassword(String matchingPassword) {
         this.matchingPassword = matchingPassword;
     }
-
-
 
 
 }

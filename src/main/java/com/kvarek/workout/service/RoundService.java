@@ -1,6 +1,5 @@
 package com.kvarek.workout.service;
 
-import com.kvarek.workout.model.ExerciseExecution;
 import com.kvarek.workout.model.Round;
 import com.kvarek.workout.repository.RoundRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +10,10 @@ import java.util.Optional;
 @Service
 public class RoundService {
 
-    @Autowired
-    private RoundRepository roundRepository;
 
+    private final RoundRepository roundRepository;
+
+    @Autowired
     public RoundService(RoundRepository roundRepository) {
         this.roundRepository = roundRepository;
     }

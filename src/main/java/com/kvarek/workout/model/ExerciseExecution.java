@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 public class ExerciseExecution implements Serializable {
 
     @Id
@@ -25,8 +25,6 @@ public class ExerciseExecution implements Serializable {
     Double exerciseWeight;
     Integer exerciseCalories;
     String comment;
-
-    public ExerciseExecution(){}
 
     public Long getId() {
         return id;

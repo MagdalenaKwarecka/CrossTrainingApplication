@@ -20,21 +20,20 @@ public class PersonController {
     PersonService personService;
     PersonValidator personValidator;
 
-    public PersonController(PersonService personService, PersonValidator personValidator)
-    {
+    public PersonController(PersonService personService, PersonValidator personValidator) {
         this.personService = personService;
-        this.personValidator=personValidator;
+        this.personValidator = personValidator;
     }
 
     @PostMapping("/saveAthlete")
-    public ResponseEntity<String> save (@RequestBody Person person){
+    public ResponseEntity<String> save(@RequestBody Person person) {
         return personValidator.athleteMessageToCoach(person);
     }
 
     @PutMapping("/updateAthlete")
-    public ResponseEntity<String> update (@RequestBody Person person) {
-       return this.personValidator.athleteMessage(person);
-      }
+    public ResponseEntity<String> update(@RequestBody Person person) {
+        return this.personValidator.athleteMessage(person);
+    }
 
     @DeleteMapping("/delete")
     public ResponseEntity<String> delete(@RequestBody Person person) {
@@ -80,6 +79,5 @@ public class PersonController {
     public ResponseEntity<List<Person>> findAllByRoleOrderByLastName(@RequestParam PersonRole role) {
         return ResponseEntity.ok(this.personService.findAllByRoleOrderByLastName(role));
     }
-
 
 }

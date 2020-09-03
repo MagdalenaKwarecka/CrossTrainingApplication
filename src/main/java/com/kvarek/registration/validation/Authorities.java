@@ -5,16 +5,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class Authorities {
 
-
     String[] noAuthoritiesPathArray;
     String[] coachAuthoritiesPathArray;
     String[] athleteAuthoritiesPathArray;
 
-
-
     public Authorities() {
-        this.noAuthoritiesPathArray= new String[]
-                {"/registration", "/saveCoach", "/login", "/person/updateAthlete", "/exerciseExecution/save", "/exercise/initial", "/round/save", "/round/findById"};
+        this.noAuthoritiesPathArray = new String[]
+                {"/registration", "/saveCoach", "/login", "/person/updateAthlete",
+                        "/exerciseExecution/save", "/exercise/initial",
+                        "/round/save", "/round/findById"};
         this.coachAuthoritiesPathArray = new String[]
                 {"/person"};
         this.athleteAuthoritiesPathArray = new String[]{"/exercise/findAllByNameContaining"};
@@ -23,6 +22,7 @@ public class Authorities {
     public String[] getNoAuthoritiesPathArray() {
         return noAuthoritiesPathArray;
     }
+
     public String[] getCoachAuthoritiesPathArray() {
         return coachAuthoritiesPathArray;
     }
@@ -30,6 +30,5 @@ public class Authorities {
     public String[] getAthleteAuthoritiesPathArray() {
         return athleteAuthoritiesPathArray;
     }
-
 
 }

@@ -18,19 +18,13 @@ public class WODExecution implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @OneToOne
+    @ManyToOne
     WOD wod;
     @ManyToOne
-    Person athlete;
+    Person person;
     LocalDate wodDate;
     String coachComment;
     String userComment;
     Double wodResult;
 
-    public WODExecution (WOD wod, Person athlete, LocalDate wodDate, String coachComment){
-        this.wod=wod;
-        this.athlete=athlete;
-        this.wodDate=wodDate;
-        this.coachComment=coachComment;
     }
-}

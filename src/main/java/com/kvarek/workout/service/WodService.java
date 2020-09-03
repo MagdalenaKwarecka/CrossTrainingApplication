@@ -1,8 +1,8 @@
 package com.kvarek.workout.service;
 
-import com.kvarek.workout.model.ExerciseExecution;
 import com.kvarek.workout.model.WOD;
 import com.kvarek.workout.repository.WodRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -10,8 +10,9 @@ import java.util.Optional;
 @Service
 public class WodService {
 
-    private WodRepository wodRepository;
+    private final WodRepository wodRepository;
 
+    @Autowired
     public WodService(WodRepository wodRepository) {
         this.wodRepository = wodRepository;
     }

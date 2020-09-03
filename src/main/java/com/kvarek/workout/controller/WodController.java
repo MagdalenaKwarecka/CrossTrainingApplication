@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/wod")
 public class WodController {
 
-    private WodService wodService;
+    private final WodService wodService;
 
     public WodController(WodService wodService) {
         this.wodService = wodService;

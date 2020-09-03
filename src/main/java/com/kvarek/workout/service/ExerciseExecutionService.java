@@ -12,18 +12,17 @@ import java.util.Optional;
 @Service
 public class ExerciseExecutionService {
 
+    private final ExerciseExecutionRepository exerciseExecutionRepository;
+    private final ExerciseRepository exerciseRepository;
+
     @Autowired
-    ExerciseExecutionRepository exerciseExecutionRepository;
-    ExerciseRepository exerciseRepository;
-
-
     public ExerciseExecutionService(ExerciseExecutionRepository exerciseExecutionRepository, ExerciseRepository exerciseRepository) {
-        this.exerciseExecutionRepository=exerciseExecutionRepository;
-        this.exerciseRepository=exerciseRepository;
+        this.exerciseExecutionRepository = exerciseExecutionRepository;
+        this.exerciseRepository = exerciseRepository;
     }
 
-     public ExerciseExecution save(ExerciseExecution exerciseExecution, String name) throws IllegalArgumentException {
-        Optional <Exercise> exercise = exerciseRepository.findByName(name);
+    public ExerciseExecution save(ExerciseExecution exerciseExecution, String name) throws IllegalArgumentException {
+        Optional<Exercise> exercise = exerciseRepository.findByName(name);
         exerciseExecution.setExercise(exercise.orElseThrow(IllegalArgumentException::new));
         return this.exerciseExecutionRepository.save(exerciseExecution);
     }

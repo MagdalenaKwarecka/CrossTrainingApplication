@@ -1,7 +1,5 @@
 package com.kvarek.workout.controller;
 
-
-
 import com.kvarek.workout.model.ExerciseExecution;
 import com.kvarek.workout.service.ExerciseExecutionService;
 import org.springframework.http.HttpStatus;
@@ -10,20 +8,24 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/exerciseExecution")
-public class ExcerciseExecutionController {
+public class ExerciseExecutionController {
 
     private ExerciseExecutionService exerciseExecutionService;
 
-
-    public ExcerciseExecutionController(ExerciseExecutionService exerciseExecutionService) {
+    public ExerciseExecutionController(ExerciseExecutionService exerciseExecutionService) {
         this.exerciseExecutionService = exerciseExecutionService;
-
     }
 
     @PostMapping("/save")
     public ResponseEntity<ExerciseExecution> save(@RequestBody ExerciseExecution exerciseExecution, @RequestParam String name) {
-        this.exerciseExecutionService.save(exerciseExecution, name);
-        return new ResponseEntity<>(exerciseExecution, HttpStatus.CREATED);
+        try {
+            this.exerciseExecutionService.save(exerciseExecution, name);
+            return new ResponseEntity<>(exerciseExecution, HttpStatus.CREATED);
+        }catch (IllegalArgumentException e){
+            ExerciseExecution notCreated = new ExerciseExecution();
+            notCreated.setComment(String.format("%s nie znaleziono w bazie danych", name));
+            return new ResponseEntity<>(notCreated, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/findById")
@@ -37,3 +39,4 @@ public class ExcerciseExecutionController {
         }
     }
 }
+

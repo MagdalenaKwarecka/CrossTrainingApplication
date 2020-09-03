@@ -14,13 +14,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
-import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity(debug = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final DataSource dataSource;
     private final ObjectMapper objectMapper;
     private final RestAuthenticationSuccessHandler successHandler;
     private final RestAuthenticationFailureHandler failureHandler;
@@ -28,12 +26,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final PersonDetailsService personDetailsService;
     private final Authorities authorities;
 
-
-
-    public WebSecurityConfiguration(DataSource dataSource, ObjectMapper objectMapper, RestAuthenticationSuccessHandler successHandler,
+    public WebSecurityConfiguration(ObjectMapper objectMapper, RestAuthenticationSuccessHandler successHandler,
                                     RestAuthenticationFailureHandler failureHandler,
-                                    @Value("${jwt.secret}") String secret, PersonDetailsService personDetailsService, Authorities authorities) {
-        this.dataSource = dataSource;
+                                    @Value("${jwt.secret}") String secret,
+                                    PersonDetailsService personDetailsService, Authorities authorities) {
         this.objectMapper = objectMapper;
         this.successHandler = successHandler;
         this.failureHandler = failureHandler;
@@ -48,15 +44,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return bCryptPasswordEncoder;
     }
 
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeRequests()
+                /*.authorizeRequests()
                 .antMatchers(authorities.getNoAuthoritiesPathArray()).permitAll()
                 .antMatchers(authorities.getCoachAuthoritiesPathArray()).hasAuthority("COACH")
                 .antMatchers(authorities.getAthleteAuthoritiesPathArray()).hasAuthority("ATHLETE")
                 .anyRequest().authenticated()
-                .and()
+                .and()*/
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(authenticationFilter())
@@ -72,5 +69,4 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         authenticationFilter.setAuthenticationManager(super.authenticationManager());
         return authenticationFilter;
     }
-
 }

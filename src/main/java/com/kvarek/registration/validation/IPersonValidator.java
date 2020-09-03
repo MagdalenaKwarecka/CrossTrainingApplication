@@ -11,6 +11,4 @@ public interface IPersonValidator {
 
     ResponseEntity<String> athleteMessage(Person person);
 
-
-
 }

@@ -21,8 +21,7 @@ public class WOD implements Serializable {
     @Enumerated(EnumType.STRING)
     WodType wodType;
     Integer wodDurationInSeconds;
-    @OneToMany
+    @ManyToMany
     List<Round> round;
-
 
 }

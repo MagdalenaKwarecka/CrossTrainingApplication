@@ -16,7 +16,8 @@ public class JsonObjectAuthenticationFilter extends UsernamePasswordAuthenticati
 
     private final ObjectMapper objectMapper;
 
-    public JsonObjectAuthenticationFilter(ObjectMapper objectMapper) {
+    public JsonObjectAuthenticationFilter(ObjectMapper objectMapper)
+    {
         this.objectMapper = objectMapper;
     }
 

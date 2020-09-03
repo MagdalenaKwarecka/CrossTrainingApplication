@@ -1,6 +1,6 @@
 package com.kvarek.workout.controller;
 
-import com.kvarek.workout.model.ExerciseExecution;
+
 import com.kvarek.workout.model.Round;
 import com.kvarek.workout.service.RoundService;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/round")
 public class RoundController {
 
-    private RoundService roundService;
+    private final RoundService roundService;
 
     public RoundController(RoundService roundService) {
         this.roundService = roundService;
@@ -21,7 +21,6 @@ public class RoundController {
     public ResponseEntity<Round> save(@RequestBody Round round) {
 
         return ResponseEntity.ok(this.roundService.save(round));
-
     }
 
     @GetMapping("/findById")

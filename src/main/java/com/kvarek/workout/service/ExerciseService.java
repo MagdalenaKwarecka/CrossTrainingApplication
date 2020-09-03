@@ -2,6 +2,7 @@ package com.kvarek.workout.service;
 
 import com.kvarek.workout.model.Exercise;
 import com.kvarek.workout.repository.ExerciseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,13 +11,14 @@ import java.util.Optional;
 @Service
 public class ExerciseService {
 
-    ExerciseRepository excerciseRepository;
+    private final ExerciseRepository excerciseRepository;
 
-    public ExerciseService(ExerciseRepository excerciseRepository){
-        this.excerciseRepository=excerciseRepository;
+    @Autowired
+    public ExerciseService(ExerciseRepository excerciseRepository) {
+        this.excerciseRepository = excerciseRepository;
     }
 
-    public void delete(Exercise excercise){
+    public void delete(Exercise excercise) {
         this.excerciseRepository.delete(excercise);
     }
 
@@ -30,22 +32,21 @@ public class ExerciseService {
         return excercise.get();
     }
 
-    public List<Exercise> findAllSortedByName(){
+    public List<Exercise> findAllSortedByName() {
         return this.excerciseRepository.findAllSortedByName();
     }
 
-    public List<Exercise> findAllByNameContaining(String name) throws IllegalArgumentException{
-        Optional <List<Exercise>> excercises = this.excerciseRepository.findAllByNameContaining(name);
+    public List<Exercise> findAllByNameContaining(String name) throws IllegalArgumentException {
+        Optional<List<Exercise>> excercises = this.excerciseRepository.findAllByNameContaining(name);
         return excercises.orElseThrow(IllegalArgumentException::new);
     }
 
-    public Exercise findByName(String name) throws IllegalArgumentException{
-        Optional <Exercise> excercise=this.excerciseRepository.findByName(name);
+    public Exercise findByName(String name) throws IllegalArgumentException {
+        Optional<Exercise> excercise = this.excerciseRepository.findByName(name);
         return excercise.orElseThrow(IllegalArgumentException::new);
     }
 
-    public Boolean existsExcerciseByName(String name){
-        return this.excerciseRepository.existsExcerciseByName(name);
+    public Boolean existsExcerciseByName(String name) {
+        return this.excerciseRepository.existsExerciseByName(name);
     }
-
 }
