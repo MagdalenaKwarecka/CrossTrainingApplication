@@ -1,18 +1,22 @@
 package com.kvarek.workout.model;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 
 @Data
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor
 public class Person implements Serializable {
     @Id
@@ -27,8 +31,13 @@ public class Person implements Serializable {
     String password;
     @Transient
     String matchingPassword;
-    @OneToMany
-    List<WODExecution> wodExecutions;
+
+
+    @OneToMany(mappedBy = "person")
+   // @Fetch(value = FetchMode.SELECT)
+    @JsonIgnore
+    Set<WODExecution> wodExecutions = new HashSet<>();
+
 
     public Person(@NotEmpty PersonRole role, @NotEmpty String firstName,
                   @NotEmpty String lastName, @NotEmpty String email, @NotEmpty String login, @NotEmpty String password) {
@@ -68,5 +77,11 @@ public class Person implements Serializable {
         this.matchingPassword = matchingPassword;
     }
 
+    public Set<WODExecution> getWodExecutions() {
+        return wodExecutions;
+    }
 
+    public void setWodExecutions(Set<WODExecution> wodExecutions) {
+        this.wodExecutions = wodExecutions;
+    }
 }

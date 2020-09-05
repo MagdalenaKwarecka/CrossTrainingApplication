@@ -1,8 +1,6 @@
 package com.kvarek.workout.controller;
 
-import com.kvarek.workout.model.ExerciseExecution;
-import com.kvarek.workout.model.Person;
-import com.kvarek.workout.model.WODExecution;
+import com.kvarek.workout.model.*;
 import com.kvarek.workout.service.WodExecutionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +11,10 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping("wodExecution")
+@RequestMapping("/wodExecution")
 public class WodExecutionController {
 
-    private WodExecutionService wodExecutionService;
+    private final WodExecutionService wodExecutionService;
     private Person person;
 
 
@@ -52,9 +50,9 @@ public class WodExecutionController {
     }
 
     @GetMapping("/findAllByAthlete")
-    public ResponseEntity<List<WODExecution>> findAllByAthlete(@RequestParam String personLastName, @RequestParam String personFirsName) {
+    public ResponseEntity<List<WODExecution>> findAllByAthlete(@RequestParam String lastName, @RequestParam String firstName) {
         try {
-            return ResponseEntity.ok(this.wodExecutionService.findAllByAthlete(person.getLastName(), person.getFirstName()));
+            return ResponseEntity.ok(this.wodExecutionService.findAllByAthlete(lastName,firstName));
         } catch (IllegalArgumentException e) {
             WODExecution notFound = new WODExecution();
             notFound.setCoachComment(String.format("%s nie ma jeszcze treninigów", person.getFirstName()));

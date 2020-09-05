@@ -67,8 +67,6 @@ public class PersonValidator implements IPersonValidator {
     public ResponseEntity<String> athleteMessage(Person person) {
         if (!this.personService.existsPersonByEmail(person.getEmail())) {
             return new ResponseEntity<>("Takiego maila nie ma w bazie danych", HttpStatus.BAD_REQUEST);
-        } else if (person.getLogin() == null || person.getLogin().isEmpty()) {
-            return new ResponseEntity<>("Uzupełnij login", HttpStatus.BAD_REQUEST);
         } else if (this.personService.existsPersonByLogin(person.getLogin())) {
             return new ResponseEntity<>("Taki login jest już w zajęty", HttpStatus.BAD_REQUEST);
         } else if (person.getPassword() == null || person.getPassword().isEmpty()) {
@@ -79,7 +77,7 @@ public class PersonValidator implements IPersonValidator {
             return new ResponseEntity<>("Hasła nie są zgodne", HttpStatus.BAD_REQUEST);
         } else {
             this.personService.update(person);
-            return new ResponseEntity<>("Uzupełniono dane zawodnika", HttpStatus.CREATED);
+            return new ResponseEntity<>("Zaktualizowano dane zawodnika", HttpStatus.CREATED);
         }
     }
 }

@@ -13,6 +13,7 @@ import java.util.Optional;
 public class WodExecutionService {
 
     private final WodExecutionRepository wodExecutionRepository;
+    Person person;
 
     @Autowired
     public WodExecutionService(WodExecutionRepository wodExecutionRepository) {
@@ -33,8 +34,8 @@ public class WodExecutionService {
         this.wodExecutionRepository.update(id, wodResult, userComment);
     }
 
-    public List<WODExecution> findAllByAthlete (String personLastName, String personFirstName) throws IllegalArgumentException{
-        Optional <List<WODExecution>> executions = this.wodExecutionRepository.findAllByAthlete(personLastName, personFirstName);
+    public List<WODExecution> findAllByAthlete (String lastName, String firstName) throws IllegalArgumentException{
+        Optional <List<WODExecution>> executions = this.wodExecutionRepository.findAllByAthlete(lastName, firstName);
         return executions.orElseThrow(IllegalArgumentException::new);
     }
 

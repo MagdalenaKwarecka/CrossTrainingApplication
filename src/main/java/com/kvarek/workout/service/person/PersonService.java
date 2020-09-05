@@ -6,15 +6,11 @@ import com.kvarek.workout.model.Person;
 import com.kvarek.workout.model.PersonRole;
 import com.kvarek.workout.repository.PersonRepository;
 import net.bytebuddy.utility.RandomString;
-import org.passay.CharacterRule;
-import org.passay.PasswordData;
-import org.passay.PasswordGenerator;
-import org.passay.RuleResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.CharacterData;
 
+import java.security.SecureRandom;
 import java.util.*;
 
 @Service
