@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 
 @Data
@@ -31,7 +32,7 @@ public class Person implements Serializable {
     String matchingPassword;
     @OneToMany(mappedBy = "person")
     @JsonIgnore
-    List<WODExecution> wodExecutions;
+    Set<WODExecution> wodExecutions;
 
     public Person(@NotEmpty PersonRole role, @NotEmpty String firstName,
                   @NotEmpty String lastName, @NotEmpty String email, @NotEmpty String login, @NotEmpty String password) {
