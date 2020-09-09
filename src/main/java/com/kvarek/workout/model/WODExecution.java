@@ -21,7 +21,7 @@ public class WODExecution implements Serializable {
     @OneToOne
     WOD wod;
     @ManyToOne
-    Person athlete;
+    Person person;
     LocalDate wodDate;
     String CoachComment;
     String UserComment;
