@@ -1,6 +1,7 @@
 package com.kvarek.workout.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.List;
 @Data
 @Entity
 @NoArgsConstructor
-//@AllArgsConstructor
+@AllArgsConstructor
 public class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +29,8 @@ public class Person implements Serializable {
     String password;
     @Transient
     String matchingPassword;
-    @OneToMany
+    @OneToMany(mappedBy = "person")
+    @JsonIgnore
     List<WODExecution> wodExecutions;
 
     public Person(@NotEmpty PersonRole role, @NotEmpty String firstName,
