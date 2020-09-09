@@ -1,5 +1,6 @@
 package com.kvarek.workout.controller;
 
+
 import com.kvarek.workout.model.ExerciseExecution;
 import com.kvarek.workout.service.ExerciseExecutionService;
 import org.springframework.http.HttpStatus;
@@ -39,4 +40,5 @@ public class ExerciseExecutionController {
         }
     }
 }
+
 
