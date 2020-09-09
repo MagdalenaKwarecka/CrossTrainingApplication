@@ -1,5 +1,8 @@
 package com.kvarek.registration.validation;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Authorities {
 
 
