@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 
 @Data
 @Entity
@@ -29,13 +29,9 @@ public class Person implements Serializable {
     String password;
     @Transient
     String matchingPassword;
-
-
     @OneToMany(mappedBy = "person")
-   // @Fetch(value = FetchMode.SELECT)
     @JsonIgnore
-    Set<WODExecution> wodExecutions = new HashSet<>();
-
+    Set<WODExecution> wodExecutions;
 
     public Person(@NotEmpty PersonRole role, @NotEmpty String firstName,
                   @NotEmpty String lastName, @NotEmpty String email, @NotEmpty String login, @NotEmpty String password) {

@@ -17,7 +17,6 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 
     void delete(Person person);
 
-
     @Transactional
     @Modifying
     @Query(value = "UPDATE Person p SET p.login =?2, p.password =?3 where p.email=?1")
