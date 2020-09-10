@@ -1,6 +1,7 @@
 package com.kvarek.workout.controller;
 
-import com.kvarek.workout.model.*;
+import com.kvarek.workout.model.Person;
+import com.kvarek.workout.model.WODExecution;
 import com.kvarek.workout.service.WodExecutionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
