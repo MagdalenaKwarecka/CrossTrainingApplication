@@ -31,9 +31,8 @@ public class WodController {
             return ResponseEntity.ok(this.wodService.findById(id));
         } catch (IllegalArgumentException e) {
             WOD notFound = new WOD();
-            notFound.setWodType(WodType.TAKI_WOD_NIE_ISTNIEJE);
+            notFound.setWodName("Taki WOD nie istnieje");
             return new ResponseEntity<>(notFound, HttpStatus.BAD_REQUEST);
         }
     }
 }
-

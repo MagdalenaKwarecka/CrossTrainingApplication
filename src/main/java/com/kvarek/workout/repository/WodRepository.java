@@ -6,7 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WodRepository extends JpaRepository<WOD, Long> {
-
-
 }
-
