@@ -1,12 +1,9 @@
 package com.kvarek.registration.email;
 
-import com.kvarek.workout.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -16,9 +13,6 @@ public class EmailSenderImpl implements EmailSender{
 
     @Autowired
     private JavaMailSender javaMailSender;
-    private TemplateEngine templateEngine;
-
-
 
     @Override
     public void sendEmail(String to, String title, String content) {

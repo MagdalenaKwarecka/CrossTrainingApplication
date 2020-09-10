@@ -47,8 +47,8 @@ public class PersonService implements UserDetailsService {
         return this.personRepository.save(person);
     }*/
 
-    public void update(long id, String login, String password){
-        this.personRepository.update(id, login, password);}
+    public void update(String email, String login, String password){
+        this.personRepository.update(email, login, password);}
 
     public Person findById(Long id) throws IllegalArgumentException {
         Optional<Person> person = this.personRepository.findById(id);
