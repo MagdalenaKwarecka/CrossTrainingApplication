@@ -1,36 +1,38 @@
 package com.kvarek.workout.service.person;
 
 
-import com.kvarek.registration.email.EmailSenderImpl;
 import com.kvarek.workout.model.Person;
 import com.kvarek.workout.model.PersonRole;
 import com.kvarek.workout.repository.PersonRepository;
-import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.SecureRandom;
 import java.util.*;
 
 @Service
-public class PersonService {
-
-
-    private final PersonRepository personRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final EmailSenderImpl emailSender;
-
-
-   RandomString random = new RandomString();
-   String generatedPassword = random.nextString();
-
+public class PersonService implements UserDetailsService {
 
     @Autowired
-    public PersonService(PersonRepository personRepository, BCryptPasswordEncoder bCryptPasswordEncoder, EmailSenderImpl emailSender) {
+    PersonRepository personRepository;
+
+
+
+    public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.emailSender = emailSender;
+    }
+
+    public UserDetails loadUserByUsername(String login) {
+        Person person = personRepository.findByLogin(login);
+        if (person == null) throw new UsernameNotFoundException(login);
+
+        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(person.getRole().name());
+        return new org.springframework.security.core.userdetails.User(person.getLogin(), person.getPassword(), Collections.singleton(grantedAuthority));
     }
 
     public void delete(Person person) {
@@ -41,26 +43,12 @@ public class PersonService {
         this.personRepository.deleteByLogin(login);
     }
 
-    public void saveCoach(Person person) {
-        person.setPassword(bCryptPasswordEncoder.encode(person.getPassword()));
-        person.setRole(PersonRole.COACH);
-        personRepository.save(person);
-    }
+   /* public Person save(Person person) {
+        return this.personRepository.save(person);
+    }*/
 
-    public void saveAthlete(Person person) {
-        person.setRole(PersonRole.ATHLETE);
-        person.setLogin(person.getEmail());
-        person.setPassword(generatedPassword);
-        emailSender.sendEmail(person.getEmail(), "Stworzono konto", "<p>Witaj </p>" +person.getFirstName()+
-                "<p>Twoje dane do logowania to:</p><p><br>login: </br></p>"+ person.getEmail()+"</p><p><br>hasło: </br></p>"+ generatedPassword);
-        personRepository.save(person);
-    }
-
-    public void update(Person person) {
-        person.setPassword(bCryptPasswordEncoder.encode(person.getPassword()));
-        this.personRepository.update(person.getEmail(), person.getLogin(), person.getPassword());
-    }
-
+    public void update(String email, String login, String password){
+        this.personRepository.update(email, login, password);}
 
     public Person findById(Long id) throws IllegalArgumentException {
         Optional<Person> person = this.personRepository.findById(id);

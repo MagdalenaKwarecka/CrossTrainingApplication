@@ -59,7 +59,7 @@ public class PersonServiceImpl implements IPersonService {
     @Override
     public void update(Person person) {
         person.setPassword(bCryptPasswordEncoder.encode(person.getPassword()));
-        this.personRepository.update(person.getId(), person.getLogin(), person.getPassword());
+        this.personRepository.update(person.getEmail(), person.getLogin(), person.getPassword());
     }
 }
 

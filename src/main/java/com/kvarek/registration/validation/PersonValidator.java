@@ -12,8 +12,8 @@ public class PersonValidator{
 
     private static final String EMAIL_PATTERN = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
 
-    private PersonService personService;
-    private PersonServiceImpl personServiceImpl;
+    private final PersonService personService;
+    private final PersonServiceImpl personServiceImpl;
 
 
     public PersonValidator(PersonService personService, PersonServiceImpl personServiceImpl) {
@@ -81,7 +81,7 @@ public class PersonValidator{
         } else if (!person.getPassword().equals(person.getMatchingPassword())) {
             return new ResponseEntity<>("Hasła nie są zgodne", HttpStatus.BAD_REQUEST);
         } else {
-            this.personServiceImpl.update(person);//person.getId(), person.getLogin(), person.getPassword());
+            this.personServiceImpl.update(person);
             return new ResponseEntity<>("Uzupełniono dane zawodnika", HttpStatus.CREATED);
         }
     }
