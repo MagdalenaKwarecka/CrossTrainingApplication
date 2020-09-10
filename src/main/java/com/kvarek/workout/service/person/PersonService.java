@@ -1,4 +1,4 @@
-package com.kvarek.workout.service;
+package com.kvarek.workout.service.person;
 
 
 import com.kvarek.workout.model.Person;

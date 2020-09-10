@@ -2,7 +2,7 @@ package com.kvarek.registration.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kvarek.registration.validation.Authorities;
-import com.kvarek.workout.service.PersonService;
+import com.kvarek.workout.service.person.PersonService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

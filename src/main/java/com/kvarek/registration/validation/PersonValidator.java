@@ -1,14 +1,14 @@
 package com.kvarek.registration.validation;
 
 import com.kvarek.workout.model.Person;
-import com.kvarek.workout.service.PersonService;
-import com.kvarek.workout.service.PersonServiceImpl;
+import com.kvarek.workout.service.person.PersonService;
+import com.kvarek.workout.service.person.PersonServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PersonValidator implements IPersonValidator {
+public class PersonValidator{
 
     private static final String EMAIL_PATTERN = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
 
@@ -21,7 +21,7 @@ public class PersonValidator implements IPersonValidator {
         this.personServiceImpl = personServiceImpl;
     }
 
-    @Override
+
     public ResponseEntity<String> coachMessage(Person person) {
 
         if (person.getFirstName() == null || person.getFirstName().isEmpty()) {
@@ -50,7 +50,7 @@ public class PersonValidator implements IPersonValidator {
         }
     }
 
-    @Override
+
     public ResponseEntity<String> athleteMessageToCoach(Person person) {
         if (person.getFirstName() == null || person.getFirstName().isEmpty()) {
             return new ResponseEntity<>("Uzupełnij imię", HttpStatus.BAD_REQUEST);
@@ -68,7 +68,7 @@ public class PersonValidator implements IPersonValidator {
         }
     }
 
-    @Override
+
     public ResponseEntity<String> athleteMessage(Person person) {
         if (person.getLogin() == null || person.getLogin().isEmpty()) {
             return new ResponseEntity<>("Uzupełnij login", HttpStatus.BAD_REQUEST);

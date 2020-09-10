@@ -1,10 +1,12 @@
-package com.kvarek.workout.service;
+package com.kvarek.workout.service.person;
 
 
 import com.kvarek.registration.email.EmailSenderImpl;
 import com.kvarek.workout.model.Person;
 import com.kvarek.workout.model.PersonRole;
 import com.kvarek.workout.repository.PersonRepository;
+import com.kvarek.workout.service.person.IPersonService;
+import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,14 +20,17 @@ public class PersonServiceImpl implements IPersonService {
     private final PersonRepository personRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final EmailSenderImpl emailSender;
-    private final TemplateEngine templateEngine;
+
+
+    RandomString random = new RandomString();
+    String generatedPassword = random.nextString();
 
     @Autowired
-    PersonServiceImpl(PersonRepository personRepository, BCryptPasswordEncoder bCryptPasswordEncoder, EmailSenderImpl emailSender, TemplateEngine templateEngine){
+    PersonServiceImpl(PersonRepository personRepository, BCryptPasswordEncoder bCryptPasswordEncoder, EmailSenderImpl emailSender){
         this.personRepository=personRepository;
         this.bCryptPasswordEncoder=bCryptPasswordEncoder;
         this.emailSender = emailSender;
-        this.templateEngine = templateEngine;
+
     }
 
     @Override
@@ -43,10 +48,11 @@ public class PersonServiceImpl implements IPersonService {
 
     @Override
     public void saveAthlete(Person person) {
-        Context context=new Context();
-        String body=templateEngine.process("template", context);
         person.setRole(PersonRole.ATHLETE);
-        emailSender.sendEmail(person.getEmail(), "Stworzono konto", body);
+        person.setLogin(person.getEmail());
+        person.setPassword(bCryptPasswordEncoder.encode(generatedPassword));
+        emailSender.sendEmail(person.getEmail(), "Stworzono konto", "<p>Witaj </p>" +person.getFirstName()+
+                "<p>Twoje dane do logowania to:</p><p><br>login: </br></p>"+ person.getEmail()+"</p><p><br>hasło: </br></p>"+ generatedPassword);
         personRepository.save(person);
     }
 
