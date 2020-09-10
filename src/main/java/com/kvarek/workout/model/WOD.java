@@ -20,6 +20,7 @@ public class WOD implements Serializable {
     Long id;
     @Enumerated(EnumType.STRING)
     WodType wodType;
+    String wodName;
     Integer wodDurationInSeconds;
     @OneToMany
     List<Round> round;
