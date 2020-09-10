@@ -2,21 +2,26 @@ package com.kvarek.registration.validation;
 
 import com.kvarek.workout.model.Person;
 import com.kvarek.workout.service.person.PersonService;
+import com.kvarek.workout.service.person.PersonServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PersonValidator implements IPersonValidator {
+public class PersonValidator{
 
     private static final String EMAIL_PATTERN = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-    private final PersonService personService;
 
-    public PersonValidator(PersonService personService) {
+    private PersonService personService;
+    private PersonServiceImpl personServiceImpl;
+
+
+    public PersonValidator(PersonService personService, PersonServiceImpl personServiceImpl) {
         this.personService = personService;
+        this.personServiceImpl = personServiceImpl;
     }
 
-    @Override
+
     public ResponseEntity<String> coachMessage(Person person) {
 
         if (person.getFirstName() == null || person.getFirstName().isEmpty()) {
@@ -40,12 +45,12 @@ public class PersonValidator implements IPersonValidator {
         } else if (!person.getPassword().equals(person.getMatchingPassword())) {
             return new ResponseEntity<>("Hasła nie są zgodne", HttpStatus.BAD_REQUEST);
         } else {
-            this.personService.saveCoach(person);
+            this.personServiceImpl.saveCoach(person);
             return new ResponseEntity<>("Trenera dodano do bazy danych", HttpStatus.CREATED);
         }
     }
 
-    @Override
+
     public ResponseEntity<String> athleteMessageToCoach(Person person) {
         if (person.getFirstName() == null || person.getFirstName().isEmpty()) {
             return new ResponseEntity<>("Uzupełnij imię", HttpStatus.BAD_REQUEST);
@@ -58,15 +63,15 @@ public class PersonValidator implements IPersonValidator {
         } else if (this.personService.existsPersonByEmail(person.getEmail())) {
             return new ResponseEntity<>("Email jest już w bazie danych", HttpStatus.BAD_REQUEST);
         } else {
-            this.personService.saveAthlete(person);
+            this.personServiceImpl.saveAthlete(person);
             return new ResponseEntity<>("Zawodnika dodano do bazy danych", HttpStatus.CREATED);
         }
     }
 
-    @Override
+
     public ResponseEntity<String> athleteMessage(Person person) {
-        if (!this.personService.existsPersonByEmail(person.getEmail())) {
-            return new ResponseEntity<>("Takiego maila nie ma w bazie danych", HttpStatus.BAD_REQUEST);
+        if (person.getLogin() == null || person.getLogin().isEmpty()) {
+            return new ResponseEntity<>("Uzupełnij login", HttpStatus.BAD_REQUEST);
         } else if (this.personService.existsPersonByLogin(person.getLogin())) {
             return new ResponseEntity<>("Taki login jest już w zajęty", HttpStatus.BAD_REQUEST);
         } else if (person.getPassword() == null || person.getPassword().isEmpty()) {
@@ -76,8 +81,8 @@ public class PersonValidator implements IPersonValidator {
         } else if (!person.getPassword().equals(person.getMatchingPassword())) {
             return new ResponseEntity<>("Hasła nie są zgodne", HttpStatus.BAD_REQUEST);
         } else {
-            this.personService.update(person);
-            return new ResponseEntity<>("Zaktualizowano dane zawodnika", HttpStatus.CREATED);
+            this.personServiceImpl.update(person);//person.getId(), person.getLogin(), person.getPassword());
+            return new ResponseEntity<>("Uzupełniono dane zawodnika", HttpStatus.CREATED);
         }
     }
 }

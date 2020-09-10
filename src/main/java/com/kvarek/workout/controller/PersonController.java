@@ -5,6 +5,7 @@ import com.kvarek.registration.validation.PersonValidator;
 import com.kvarek.workout.model.Person;
 import com.kvarek.workout.model.PersonRole;
 import com.kvarek.workout.service.person.PersonService;
+import com.kvarek.workout.service.person.PersonServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,22 +19,27 @@ import java.util.List;
 public class PersonController {
 
     PersonService personService;
+    PersonServiceImpl personServiceImpl;
     PersonValidator personValidator;
 
-    public PersonController(PersonService personService, PersonValidator personValidator) {
+    public PersonController(PersonService personService, PersonServiceImpl personServiceImpl, PersonValidator personValidator)
+    {
         this.personService = personService;
-        this.personValidator = personValidator;
+        this.personServiceImpl=personServiceImpl;
+        this.personValidator=personValidator;
     }
 
     @PostMapping("/saveAthlete")
-    public ResponseEntity<String> save(@RequestBody Person person) {
+    public ResponseEntity<String> save (@RequestBody Person person){
         return personValidator.athleteMessageToCoach(person);
     }
 
     @PutMapping("/updateAthlete")
-    public ResponseEntity<String> update(@RequestBody Person person) {
-        return this.personValidator.athleteMessage(person);
+    public ResponseEntity<String> update (@RequestBody Person person) {//@RequestParam long id, @RequestParam String login, @RequestParam String password){
+       return this.personValidator.athleteMessage(person);
+        // this.personService.update(person.getId(),person.getLogin(), person.getPassword());
     }
+
 
     @DeleteMapping("/delete")
     public ResponseEntity<String> delete(@RequestBody Person person) {
@@ -79,5 +85,6 @@ public class PersonController {
     public ResponseEntity<List<Person>> findAllByRoleOrderByLastName(@RequestParam PersonRole role) {
         return ResponseEntity.ok(this.personService.findAllByRoleOrderByLastName(role));
     }
+
 
 }

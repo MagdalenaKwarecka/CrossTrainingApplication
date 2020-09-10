@@ -2,7 +2,7 @@ package com.kvarek.registration.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kvarek.registration.validation.Authorities;
-import com.kvarek.workout.service.person.PersonDetailsService;
+import com.kvarek.workout.service.person.PersonService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,22 +14,26 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity(debug = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private final DataSource dataSource;
     private final ObjectMapper objectMapper;
     private final RestAuthenticationSuccessHandler successHandler;
     private final RestAuthenticationFailureHandler failureHandler;
     private final String secret;
-    private final PersonDetailsService personDetailsService;
+    private final PersonService personDetailsService;
     private final Authorities authorities;
 
-    public WebSecurityConfiguration(ObjectMapper objectMapper, RestAuthenticationSuccessHandler successHandler,
+
+
+    public WebSecurityConfiguration(DataSource dataSource, ObjectMapper objectMapper, RestAuthenticationSuccessHandler successHandler,
                                     RestAuthenticationFailureHandler failureHandler,
-                                    @Value("${jwt.secret}") String secret,
-                                    PersonDetailsService personDetailsService, Authorities authorities) {
+                                    @Value("${jwt.secret}") String secret, PersonService personDetailsService, Authorities authorities) {
+        this.dataSource = dataSource;
         this.objectMapper = objectMapper;
         this.successHandler = successHandler;
         this.failureHandler = failureHandler;
@@ -48,12 +52,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                /*.authorizeRequests()
+                .authorizeRequests()
                 .antMatchers(authorities.getNoAuthoritiesPathArray()).permitAll()
                 .antMatchers(authorities.getCoachAuthoritiesPathArray()).hasAuthority("COACH")
                 .antMatchers(authorities.getAthleteAuthoritiesPathArray()).hasAuthority("ATHLETE")
                 .anyRequest().authenticated()
-                .and()*/
+                .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(authenticationFilter())
@@ -69,4 +73,5 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         authenticationFilter.setAuthenticationManager(super.authenticationManager());
         return authenticationFilter;
     }
+
 }
