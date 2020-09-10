@@ -1,12 +1,11 @@
 package com.kvarek.workout.controller;
 
-import com.kvarek.workout.model.ExerciseExecution;
 import com.kvarek.workout.model.WOD;
+import com.kvarek.workout.model.WodType;
 import com.kvarek.workout.service.WodService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 @RestController
 @RequestMapping("/wod")
