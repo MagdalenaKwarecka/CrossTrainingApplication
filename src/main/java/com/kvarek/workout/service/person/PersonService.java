@@ -18,11 +18,11 @@ import java.util.*;
 @Service
 public class PersonService implements UserDetailsService {
 
+
+    private final PersonRepository personRepository;
+
+
     @Autowired
-    PersonRepository personRepository;
-
-
-
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
@@ -43,19 +43,11 @@ public class PersonService implements UserDetailsService {
         this.personRepository.deleteByLogin(login);
     }
 
-   /* public Person save(Person person) {
-        return this.personRepository.save(person);
-    }*/
-
-    public void update(String email, String login, String password){
-        this.personRepository.update(email, login, password);}
-
     public Person findById(Long id) throws IllegalArgumentException {
         Optional<Person> person = this.personRepository.findById(id);
         person.orElseThrow(IllegalArgumentException::new);
         return person.get();
     }
-
 
     public Person findByLoginOrEmail(String login, String email) throws IllegalArgumentException {
         Optional<Person> person = this.personRepository.findByLoginOrEmail(login, email);
