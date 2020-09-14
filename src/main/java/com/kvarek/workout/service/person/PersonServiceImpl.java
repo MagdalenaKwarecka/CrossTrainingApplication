@@ -8,7 +8,6 @@ import com.kvarek.workout.model.PersonRole;
 import com.kvarek.workout.repository.PersonRepository;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,9 +33,6 @@ public class PersonServiceImpl implements IPersonService {
         this.emailSender = emailSender;
 
     }
-
-    PersonDetails userDetails;
-
 
     @Override
     public void saveCoach(Person person) {
@@ -64,7 +60,6 @@ public class PersonServiceImpl implements IPersonService {
     @Override
     public void update(Person person) {
         person.setPassword(bCryptPasswordEncoder.encode(person.getPassword()));
-
         this.personRepository.update(person.getLogin(), person.getPassword());
     }
 }
