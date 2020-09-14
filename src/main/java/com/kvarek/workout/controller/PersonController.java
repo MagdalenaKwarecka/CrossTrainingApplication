@@ -37,7 +37,6 @@ public class PersonController {
     @PutMapping("/updateAthlete")
     public ResponseEntity<String> update (@RequestBody Person person) {//@RequestParam long id, @RequestParam String login, @RequestParam String password){
        return this.personValidator.athleteMessage(person);
-        // this.personService.update(person.getId(),person.getLogin(), person.getPassword());
     }
 
 

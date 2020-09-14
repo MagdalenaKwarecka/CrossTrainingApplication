@@ -19,8 +19,8 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE Person p SET p.login =?2, p.password =?3 where p.email=?1")
-    void update(@Param("email") String email , @Param("login") String login, @Param("password") String password );
+    @Query(value = "UPDATE Person p SET p.password =?2 where p.login=?1")
+    void update(@Param("login") String login, @Param("password") String password );
 
     Person findByLogin(String login);
 

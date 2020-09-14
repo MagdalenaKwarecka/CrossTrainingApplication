@@ -5,10 +5,11 @@ import com.kvarek.workout.service.person.PersonService;
 import com.kvarek.workout.service.person.PersonServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PersonValidator{
+public class PersonValidator {
 
     private static final String EMAIL_PATTERN = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
 
@@ -16,11 +17,12 @@ public class PersonValidator{
     private final PersonServiceImpl personServiceImpl;
 
 
+
     public PersonValidator(PersonService personService, PersonServiceImpl personServiceImpl) {
         this.personService = personService;
         this.personServiceImpl = personServiceImpl;
-    }
 
+    }
 
     public ResponseEntity<String> coachMessage(Person person) {
 
@@ -70,11 +72,8 @@ public class PersonValidator{
 
 
     public ResponseEntity<String> athleteMessage(Person person) {
-        if (person.getLogin() == null || person.getLogin().isEmpty()) {
-            return new ResponseEntity<>("Uzupełnij login", HttpStatus.BAD_REQUEST);
-        } else if (this.personService.existsPersonByLogin(person.getLogin())) {
-            return new ResponseEntity<>("Taki login jest już w zajęty", HttpStatus.BAD_REQUEST);
-        } else if (person.getPassword() == null || person.getPassword().isEmpty()) {
+        person.setLogin(findLoggedInLogin());
+        if (person.getPassword() == null || person.getPassword().isEmpty()) {
             return new ResponseEntity<>("Uzupełnij hasło", HttpStatus.BAD_REQUEST);
         } else if (person.getMatchingPassword() == null || person.getMatchingPassword().isEmpty()) {
             return new ResponseEntity<>("Powtórz hasło", HttpStatus.BAD_REQUEST);
@@ -84,5 +83,11 @@ public class PersonValidator{
             this.personServiceImpl.update(person);
             return new ResponseEntity<>("Uzupełniono dane zawodnika", HttpStatus.CREATED);
         }
+    }
+
+    public String findLoggedInLogin() {
+        Object personDetails = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return ((String) personDetails);
     }
 }
