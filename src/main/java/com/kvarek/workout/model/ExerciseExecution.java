@@ -26,5 +26,60 @@ public class ExerciseExecution implements Serializable {
     Integer exerciseCalories;
     String comment;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getWorkDurationInSeconds() {
+        return workDurationInSeconds;
+    }
+
+    public void setWorkDurationInSeconds(Long workDurationInSeconds) {
+        this.workDurationInSeconds = workDurationInSeconds;
+    }
+
+    public Integer getNumberOfRepetition() {
+        return numberOfRepetition;
+    }
+
+    public void setNumberOfRepetition(Integer numberOfRepetition) {
+        this.numberOfRepetition = numberOfRepetition;
+    }
+
+    public Exercise getExercise() {
+        return exercise;
+    }
+
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
+    }
+
+    public Double getExerciseWeight() {
+        return exerciseWeight;
+    }
+
+    public void setExerciseWeight(Double exerciseWeight) {
+        this.exerciseWeight = exerciseWeight;
+    }
+
+    public Integer getExerciseCalories() {
+        return exerciseCalories;
+    }
+
+    public void setExerciseCalories(Integer exerciseCalories) {
+        this.exerciseCalories = exerciseCalories;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 }
 

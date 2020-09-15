@@ -21,15 +21,15 @@ public class PersonServiceImpl implements IPersonService {
 
 
 
-
-
     RandomString random = new RandomString();
     String generatedPassword = random.nextString();
 
     @Autowired
+
     PersonServiceImpl(PersonRepository personRepository, BCryptPasswordEncoder bCryptPasswordEncoder, EmailSenderImpl emailSender) {
         this.personRepository = personRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+
         this.emailSender = emailSender;
 
     }

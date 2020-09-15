@@ -87,6 +87,7 @@ public class PersonValidator {
 
     public String findLoggedInLogin() {
         Object personDetails = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         return ((String) personDetails);
     }
 }
