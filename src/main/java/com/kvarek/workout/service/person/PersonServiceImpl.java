@@ -2,7 +2,6 @@ package com.kvarek.workout.service.person;
 
 
 import com.kvarek.registration.email.EmailSenderImpl;
-
 import com.kvarek.workout.model.Person;
 import com.kvarek.workout.model.PersonRole;
 import com.kvarek.workout.repository.PersonRepository;
@@ -20,16 +19,13 @@ public class PersonServiceImpl implements IPersonService {
     private final EmailSenderImpl emailSender;
 
 
-
-
-
     RandomString random = new RandomString();
     String generatedPassword = random.nextString();
 
     @Autowired
-    PersonServiceImpl(PersonRepository personRepository, BCryptPasswordEncoder bCryptPasswordEncoder, EmailSenderImpl emailSender) {
-        this.personRepository = personRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    PersonServiceImpl(PersonRepository personRepository, BCryptPasswordEncoder bCryptPasswordEncoder, EmailSenderImpl emailSender){
+        this.personRepository=personRepository;
+        this.bCryptPasswordEncoder=bCryptPasswordEncoder;
         this.emailSender = emailSender;
 
     }

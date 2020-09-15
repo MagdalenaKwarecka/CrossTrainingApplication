@@ -26,4 +26,3 @@ public interface WodExecutionRepository extends JpaRepository<WODExecution, Long
 
 
 }
-

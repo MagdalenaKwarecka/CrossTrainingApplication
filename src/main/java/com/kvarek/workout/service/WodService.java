@@ -27,3 +27,4 @@ public class WodService {
         return wod.get();
     }
 }
+
