@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-//@RequestMapping("/registration")
+@RequestMapping("/registration")
 public class RegistrationController {
 
 
@@ -27,5 +27,5 @@ public class RegistrationController {
 
     @PostMapping("/login")
    public void login(@RequestBody LoginCredentials credentials) {
-
-   }}
+   }
+}
