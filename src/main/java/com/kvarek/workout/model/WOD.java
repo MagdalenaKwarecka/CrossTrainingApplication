@@ -22,8 +22,7 @@ public class WOD implements Serializable {
     WodType wodType;
     String wodName;
     Integer wodDurationInSeconds;
-    @OneToMany
+    @ManyToMany
     List<Round> round;
-
 
 }

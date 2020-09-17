@@ -27,5 +27,6 @@ public class RegistrationController {
 
     /*@PostMapping("/login")
    public void login(@RequestBody LoginCredentials credentials) {
+
    }*/
 }

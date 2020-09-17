@@ -8,7 +8,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 @Service
-public class EmailSenderImpl implements EmailSender{
+public class EmailSenderImpl implements EmailSender {
 
     private final JavaMailSender javaMailSender;
 
@@ -18,7 +18,6 @@ public class EmailSenderImpl implements EmailSender{
 
     @Override
     public void sendEmail(String to, String title, String content) {
-
 
         MimeMessage mail = javaMailSender.createMimeMessage();
         try {
@@ -31,5 +30,4 @@ public class EmailSenderImpl implements EmailSender{
         }
         javaMailSender.send(mail);
     }
-
 }

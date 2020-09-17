@@ -19,13 +19,16 @@ public class PersonServiceImpl implements IPersonService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final EmailSenderImpl emailSender;
 
+
     RandomString random = new RandomString();
     String generatedPassword = random.nextString();
 
     @Autowired
+
     PersonServiceImpl(PersonRepository personRepository, BCryptPasswordEncoder bCryptPasswordEncoder, EmailSenderImpl emailSender) {
         this.personRepository = personRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+
         this.emailSender = emailSender;
     }
 

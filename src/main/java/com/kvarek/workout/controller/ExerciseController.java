@@ -18,12 +18,13 @@ public class ExerciseController {
 
     public ExerciseController(ExerciseService exerciseService) {
         this.exerciseService = exerciseService;
+
     }
 
     @PostMapping("/initial")
     public String createInitialData() {
         Exercise exercise1 = new Exercise("airbike");
-        Exercise exercise2 = new Exercise("wall ball shot");
+        Exercise exercise2 = new Exercise("burpee");
         Exercise exercise3 = new Exercise("strict pull up");
         Exercise exercise4 = new Exercise("deadlift");
         Exercise exercise5 = new Exercise("double under");
@@ -43,7 +44,6 @@ public class ExerciseController {
 
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestParam String name) {
-
         if (this.exerciseService.existsExcerciseByName(name)) {
             return new ResponseEntity<>("ćwiczenie już jest na liście", HttpStatus.CONFLICT);
         }
@@ -51,7 +51,6 @@ public class ExerciseController {
         this.exerciseService.save(exercise);
         return new ResponseEntity<>("ćwiczenie dodano do listy", HttpStatus.CREATED);
     }
-
 
     @GetMapping("/findById{id}")
     public ResponseEntity<Exercise> findById(@PathVariable Long id) {
