@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 
@@ -67,12 +66,6 @@ public class Person implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public void setMatchingPassword(String matchingPassword) {
-        this.matchingPassword = matchingPassword;
-    }
-
-
 
 
 }

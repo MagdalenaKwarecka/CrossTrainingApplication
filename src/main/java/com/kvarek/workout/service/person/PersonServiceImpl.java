@@ -20,7 +20,6 @@ public class PersonServiceImpl implements IPersonService {
     private final EmailSenderImpl emailSender;
 
 
-
     RandomString random = new RandomString();
     String generatedPassword = random.nextString();
 
@@ -31,12 +30,10 @@ public class PersonServiceImpl implements IPersonService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 
         this.emailSender = emailSender;
-
     }
 
     @Override
     public void saveCoach(Person person) {
-
         person.setPassword(bCryptPasswordEncoder.encode(person.getPassword()));
         person.setRole(PersonRole.COACH);
         personRepository.save(person);

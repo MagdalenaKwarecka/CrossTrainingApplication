@@ -16,8 +16,9 @@ public class ExerciseController {
 
     ExerciseService exerciseService;
 
-    public ExerciseController(ExerciseService excerciseService) {
-        this.exerciseService = excerciseService;
+    public ExerciseController(ExerciseService exerciseService) {
+        this.exerciseService = exerciseService;
+
     }
 
     @PostMapping("/initial")

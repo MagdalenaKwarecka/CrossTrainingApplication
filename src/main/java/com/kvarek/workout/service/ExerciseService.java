@@ -2,7 +2,9 @@ package com.kvarek.workout.service;
 
 import com.kvarek.workout.model.Exercise;
 import com.kvarek.workout.repository.ExerciseRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +12,8 @@ import java.util.Optional;
 
 @Service
 public class ExerciseService {
+
+
 
     private final ExerciseRepository excerciseRepository;
 
@@ -28,9 +32,11 @@ public class ExerciseService {
 
     public Exercise findById(Long id) throws IllegalArgumentException {
         Optional<Exercise> excercise = this.excerciseRepository.findById(id);
+
         excercise.orElseThrow(IllegalArgumentException::new);
         return excercise.get();
     }
+
 
     public List<Exercise> findAllSortedByName() {
         return this.excerciseRepository.findAllSortedByName();
@@ -49,4 +55,5 @@ public class ExerciseService {
     public Boolean existsExcerciseByName(String name) {
         return this.excerciseRepository.existsExerciseByName(name);
     }
+
 }

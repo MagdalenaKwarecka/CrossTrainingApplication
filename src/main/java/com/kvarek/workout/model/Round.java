@@ -22,8 +22,7 @@ public class Round implements Serializable {
     Long roundDurationInSeconds;
     Integer numberOfRepetition;
     String comment;
-    @NotNull
-    @ManyToMany
-    List<ExerciseExecution> exerciseExecution;
+    @OneToMany
+    List<ExerciseExecution> exerciseExecutionList;
 
 }
