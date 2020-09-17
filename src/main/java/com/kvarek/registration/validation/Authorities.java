@@ -13,8 +13,8 @@ public class Authorities {
 
     public Authorities() {
         this.noAuthoritiesPathArray= new String[]{
-                "registration/saveCoach",
-                "registration/login"};
+                "/registration/saveCoach",
+                "/registration/login"};
         this.coachAuthoritiesPathArray = new String[]{
                 "/exercise/initial",
                 "/exercise/save",

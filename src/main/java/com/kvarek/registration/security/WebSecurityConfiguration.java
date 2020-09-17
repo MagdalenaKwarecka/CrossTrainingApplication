@@ -14,13 +14,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
-import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity(debug = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final DataSource dataSource;
+
     private final ObjectMapper objectMapper;
     private final RestAuthenticationSuccessHandler successHandler;
     private final RestAuthenticationFailureHandler failureHandler;
@@ -30,10 +29,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
 
-    public WebSecurityConfiguration(DataSource dataSource, ObjectMapper objectMapper, RestAuthenticationSuccessHandler successHandler,
+    public WebSecurityConfiguration(ObjectMapper objectMapper, RestAuthenticationSuccessHandler successHandler,
                                     RestAuthenticationFailureHandler failureHandler,
                                     @Value("${jwt.secret}") String secret, PersonService personDetailsService, Authorities authorities) {
-        this.dataSource = dataSource;
         this.objectMapper = objectMapper;
         this.successHandler = successHandler;
         this.failureHandler = failureHandler;

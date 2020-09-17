@@ -8,44 +8,44 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ExcerciseService {
+public class ExerciseService {
 
-    ExerciseRepository excerciseRepository;
+    ExerciseRepository exerciseRepository;
 
-    public ExcerciseService(ExerciseRepository excerciseRepository){
-        this.excerciseRepository=excerciseRepository;
+    public ExerciseService(ExerciseRepository exerciseRepository){
+        this.exerciseRepository = exerciseRepository;
     }
 
     public void delete(Exercise excercise){
-        this.excerciseRepository.delete(excercise);
+        this.exerciseRepository.delete(excercise);
     }
 
     public Exercise save(Exercise excercise) {
-        return this.excerciseRepository.save(excercise);
+        return this.exerciseRepository.save(excercise);
     }
 
     public Exercise findById(Long id) throws IllegalArgumentException {
-        Optional<Exercise> excercise = this.excerciseRepository.findById(id);
+        Optional<Exercise> excercise = this.exerciseRepository.findById(id);
         excercise.orElseThrow(IllegalArgumentException::new);
         return excercise.get();
     }
 
     public List<Exercise> findAllSortedByName(){
-        return this.excerciseRepository.findAllSortedByName();
+        return this.exerciseRepository.findAllSortedByName();
     }
 
     public List<Exercise> findAllByNameContaining(String name) throws IllegalArgumentException{
-        Optional <List<Exercise>> excercises = this.excerciseRepository.findAllByNameContaining(name);
+        Optional <List<Exercise>> excercises = this.exerciseRepository.findAllByNameContaining(name);
         return excercises.orElseThrow(IllegalArgumentException::new);
     }
 
     public Exercise findByName(String name) throws IllegalArgumentException{
-        Optional <Exercise> excercise=this.excerciseRepository.findByName(name);
+        Optional <Exercise> excercise=this.exerciseRepository.findByName(name);
         return excercise.orElseThrow(IllegalArgumentException::new);
     }
 
     public Boolean existsExcerciseByName(String name){
-        return this.excerciseRepository.existsExcerciseByName(name);
+        return this.exerciseRepository.existsExcerciseByName(name);
     }
 
 }

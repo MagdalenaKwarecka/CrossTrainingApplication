@@ -21,6 +21,6 @@ public class Round implements Serializable {
     Integer numberOfRepetition;
     String comment;
     @OneToMany
-    List<ExerciseExecution> excerciseExecutionList;
+    List<ExerciseExecution> exerciseExecutionList;
 
 }
